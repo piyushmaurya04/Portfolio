@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PiyushSantoshMaurya-Portfolio-2024</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon-16x16.png" type="image/x-icon">
+
+    <script src="https://kit.fontawesome.com/96d2f6aa1e.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="header" id="header_id">
+        <div class="container">
+            <nav>
+                <img src="pm.png" class="logo" alt="">
+                <ul id="sideMenu">
+                    <li><a href="#header_id">Home</a></li>
+                    <li><a href="#about_id">About</a></li>
+                    <li><a href="#services_id">Achivements</a></li>
+                    <li><a href="#portfolio_id">Projects</a></li>
+                    <li><a href="#contact_id">Contact</a></li>
+                    <i class="fa-regular fa-circle-xmark fas" onclick="closeMenu()"></i>
+                </ul>
+                <i class="fa-solid fa-bars fas" onclick="openMenu()"> </i>
+            </nav>
+
+            <div class="header_text">
+                <p>Full Stack Developer</p>
+                <h1>Hi, I'm <span>Piyush</span>  <br> Maurya </h1>
+            </div>
+        </div>
+    </div>
+<!-- ---------------------------------About---------------------------------- -->
+    <div class="about" id="about_id">
+        <div class="container">
+            <div class="row">
+                <div class="about_col1">
+                    <img src="piyush4.png" alt="">
+                </div>
+                <div class="about_col2">
+                    <h1 class="subtitle">About Me </h1>
+                    <p>I'm a 2024 Computer Science graduate from SSVPS Bapusaheb Shivajirao Deore College of Engineering, Dhule, with a CGPA of 8.59.<br> Proficient in full-stack development, I specialize in Java, JavaScript, React, HTML, CSS, JSP, Servlets, and Spring Boot.</p>
+
+                    <div class="tab_titles">
+                        <p class="tab_links active_link" onclick="openTab('skills')">Skills</p>
+                        <p class="tab_links"  onclick="openTab('Educations')">Educations</p>
+                        <p class="tab_links"  onclick="openTab('Training')">Trainings </p>
+                    </div>
+
+                    <div class="tab_content active_tabs" id="skills">
+                        <ul>
+                            <li><Span>Java</Span><br>Core java <br> JSP <br> Servlets <br>Spring Boot(basics)</li>
+                            <li><Span>Web development</Span><br>HTML <br> CSS <br> JavaScript <br>React.Js</li>
+                            <li><span>Database</span> <br>MySql</li>
+                            <li><span> Coursework </span> <br>DBMS <br>DSA <br>OOP's</li>
+                        </ul>
+                    </div>
+
+                    <div class="tab_content" id="Educations">
+                        <ul>
+                            <li><Span>B.tech in Computer Science Engineering</Span><br>SSVPS Bapusaheb Shivajirao Deore College of Engineering, Dhule<br>CGPA: 8.59 <br>2020-2024</li>
+                            <li><Span>HSC</Span><br> GTP College,Nandurbar<br> Percentage: 61.85% <br>2018-2020</li>
+                            <li><span>SSC</span> <br>S.A. Mission English Medium High School,Nandurbar <br> Percentage: 86.80% <br>2018</li>
+                        </ul>
+                    </div>
+
+                    <div class="tab_content" id="Training">
+                        <ul>
+                            <li><Span>Java Language </Span><br>Ashwadeep Computer Classes, Dhule</li>
+                            <li><Span>  App Development </Span><br>Infotech Incorporate, Dhule</li>
+                            <li><span> Web Development (Internship)</span> <br> TechnoHacks Edutech, Nashik</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ------------------------------------------Services--------------------------------------------------- -->
+    <div class="services" id="services_id">
+        <div class="container">
+            <h1 class="subtitle">My Programing Achivements </h1>
+              <div class="servicesList">
+                <div>
+                    <i class="fa-solid fa-code"></i>
+                    <h1>LeetCode</h1>
+                    <p> Solved over 100 LeetCode problems, mastering data structures (arrays, trees, graphs) and algorithms (sorting, dynamic programming). Proficient in Java. Enhanced problem-solving skills and code efficiency. </p>
+                    <a href="https://leetcode.com/u/mauryapiyush30/" target="_blank"><i class="fa-solid fa-user"></i></a>
+                </div>
+
+                <div>
+                    <i class="fa-solid fa-code"></i>
+                    <h1>CodeChef</h1>
+                    <p>Achieved 2-star rating on CodeChef with a highest rating of 1565. Solved 300+ problems, showcasing expertise in algorithms, data structures, and Competitive Programming. Proficient in java.</p>
+                   
+                    <a href="https://www.codechef.com/users/piyushmaurya04" target="_blank"><i class="fa-solid fa-user"></i></a>
+                </div>
+
+                <div>
+                    <i class="fa-solid fa-code"></i>
+                    <h1>HakerRank</h1>
+                    <p>Earned a Gold Badge in Java on HackerRank (5 stars), demonstrating advanced proficiency in Java programming. Successfully tackled a wide range of coding challenges, showcasing strong problem-solving skills and coding expertise</p>
+                    <a href="https://www.hackerrank.com/profile/piyushmaurya8421" target="_blank"><i class="fa-solid fa-user"></i></a>
+                </div>
+              </div>
+        </div>
+    </div>
+
+    <!-- ------------------------My Projects------------------- -->
+    <div class="portfolio" id="portfolio_id">
+        <div class="container">
+            <h1 class="subtitle">My Projects </h1>
+              <div class="workList">
+                <div class="work">
+                    <img src="netflix.jpg" alt="">
+                    <div class="layer">
+                        <h3>Netflix Clone</h3>
+                        <p> A replica of Netflix UI built with HTML, CSS, and JavaScript. Explore this project to learn frontend web development techniques</p>
+
+                            <a href="https://github.com/piyushmaurya04/Netflix-Clone-" target="_blank"><i class="fa-solid fa-link"></i></a>
+                    </div>
+                </div>
+
+                <div class="work">
+                    <img src="wea.jpg" alt="">
+                    <div class="layer">
+                        <h3> Weather Application </h3>
+                        <p>• Developed a dynamic Weather App. <br> • Technologies Used: • Frontend: HTML, CSS, JavaScript • Backend: Java JSP, Servlets </p>
+
+                            <a href="https://github.com/piyushmaurya04/Weather-project" target="_blank"><i class="fa-solid fa-link" ></i></a>
+                    </div>
+                </div>
+
+                <div class="work">
+                    <img src="Myntra.jpg" alt="">
+                    <div class="layer">
+                        <h3>Myntra Clone </h3>
+                        <p>Developed a responsive Myntra clone using HTML, CSS, and JavaScript, featuring dynamic product listings, interactive shopping cart, user authentication, and the functionality to add items to the bag.
+                        </p>
+
+                            <a href=""><i class="fa-solid fa-link"></i></a>
+                    </div>
+                </div>
+              </div>
+               <div class="workList seeMoreWork">
+                <div class="work">
+                    <img src="hospital.jpg" alt="">
+                    <div class="layer">
+                        <h3>Hospital Management (Backend)</h3>
+                        <p>• Designed and implemented a Java/JDBC backend system for hospital management. <br>
+                            • Technology Used: Integrated MySQL for data storage and retrieval. </p>
+
+                            <a href="https://github.com/piyushmaurya04/Hospital-Management-Backend-JDBC-" target="_blank"><i class="fa-solid fa-link"></i></a>
+                    </div>
+                </div>
+
+                <div class="work">
+                    <img src="tic.jpg" alt="">
+                    <div class="layer">
+                        <h3>Tic Tac Toe </h3>
+                        <p>Created a Tic Tac Toe game using HTML, CSS, and JavaScript, featuring a responsive design, interactive gameplay, and logic for win/loss detection, enhancing user engagement and experience.</p>
+
+                            <a href=""><i class="fa-solid fa-link"></i></a>
+                    </div>
+                </div>
+
+                <div class="work">
+                    <img src="chat1.jpg" alt="">
+                    <div class="layer">
+                        <h3>Chat Application </h3>
+                        <p>• Build a real-time chat application that allows users to talk to each other in real-time. <br> • Technology Used : Xamarin Forms , C Sharp
+                        </p>
+
+                            <a href=""><i class="fa-solid fa-link"></i></a>
+                    </div>
+                </div>
+              </div>
+              <a href="" class="btn HideBtn" onclick="HideBtn()">Show less</a>
+
+              <!-- ---------------SeeMore______ -->
+              
+              <a href="" class="btn moreBtn" onclick="seeMoreBtn()">See More</a>
+        </div>
+    </div>
+    <!-- -------------------------------contact--------------------------------- -->
+    <div class="contact" id="contact_id">
+        <div class="container">
+            <div class="row">
+                <div class="contactLeft">
+                    <h1 class="subtitle">Contact Me</h1>
+                    <p> <i class="fa-solid fa-envelope"></i>piyushmaurya0410@gmail.com</p>
+                    <p> <i class="fa-solid fa-phone"></i>+918600450745</p>
+                    <div class="socialicons">
+                        <a href="https://www.linkedin.com/in/piyush-maurya-a1a5a1256/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="https://github.com/piyushmaurya04" target="_blank"><i class="fa-brands fa-github"></i></a>
+                        <a href="https://www.instagram.com/piyushmaurya22?igsh=bnF5N2ZxMDVwdTZj" target="_blank"><i class="fa-brands fa-square-instagram"></i></a>
+                        <a href="https://x.com/piyushmaurya22" target="_blank"><i class="fa-brands fa-square-x-twitter"></i></a>
+                    </div>
+                    <a href="Piyush Maurya 8600450745.pdf" download class="btn btn2" >Download Resume</a>
+                </div>
+                <div class="contactRight">
+                    <form name="submit-to-google-sheet">
+                        <input type="text" name="Name" placeholder="Your Name" required>
+                        <input type="email" name="Email" placeholder="Your Email" required>
+                        <textarea name="Messages" rows="6" placeholder="Your Messages"></textarea>
+                        <button type="submit" class="btn btn2">Submit</button>
+                    </form>
+                   <span id="msg"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- -----------------------Footer------------------- -->
+    <div class="copyright">
+        <p>Copyright © Piyush Maurya </p>
+    </div>
+
+    <script src="script.js"> </script>
+</body>
+</html>
