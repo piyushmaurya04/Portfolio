@@ -56,3 +56,26 @@ function HideBtn(){
     moreBtn.style.display="block"
 
   }
+
+  function calculateExperience(startDate) {
+    const start = new Date(startDate);
+    const now = new Date();
+
+    let years = now.getFullYear() - start.getFullYear();
+    let months = now.getMonth() - start.getMonth();
+    let days = now.getDate() - start.getDate();
+
+    if (days < 0) {
+        months--;
+        days += new Date(now.getFullYear(), now.getMonth(), 0).getDate(); // Days in prev month
+    }
+
+    if (months < 0) {
+        years--;
+        months += 12;
+    }
+
+    return `${years} year(s), ${months} month(s), ${days} day(s)`;
+}
+
+document.getElementById("experienceDuration").textContent = calculateExperience("2025-01-16");
