@@ -12,9 +12,10 @@
 </head>
 <body>
     <div class="header" id="header_id">
+        <div class="header-bg-overlay"></div>
         <div class="container">
             <nav>
-                <img src="pm.png" class="logo" alt="">
+                <img src="favicon-.png" class="logo" alt="">
                 <ul id="sideMenu">
                     <li><a href="#header_id">Home</a></li>
                     <li><a href="#about_id">About</a></li>
@@ -23,6 +24,14 @@
                     <li><a href="#contact_id">Contact</a></li>
                     <i class="fa-regular fa-circle-xmark fas" onclick="closeMenu()"></i>
                 </ul>
+                <div class="theme-toggle-wrapper">
+                    <input type="checkbox" id="theme-toggle" class="theme-toggle-input" aria-label="Toggle dark/light mode">
+                    <label for="theme-toggle" class="theme-toggle-label">
+                        <span class="theme-toggle-slider"></span>
+                        <span class="theme-toggle-icon theme-toggle-moon"><i class="fa-solid fa-moon"></i></span>
+                        <span class="theme-toggle-icon theme-toggle-sun"><i class="fa-solid fa-sun"></i></span>
+                    </label>
+                </div>
                 <i class="fa-solid fa-bars fas" onclick="openMenu()"> </i>
             </nav>
 
