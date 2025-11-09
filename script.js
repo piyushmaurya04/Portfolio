@@ -178,22 +178,45 @@ function closeMenu(){
 }
 
 
-const scriptURL = 'https://script.google.com/macros/s/AKfycbwa9WFJL_v2aPRY4DccuIEqeWpbrxxsZZSkrhy5yNjhLQAxA3XZ6bhZOMfUo0PnpKDj/exec';
-  const form = document.forms['submit-to-google-sheet']
-  const msg = document.querySelector("#msg");
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwa9WFJL_v2aPRY4DccuIEqeWpbrxxsZZSkrhy5yNjhLQAxA3XZ6bhZOMfUo0PnpKDj/exec';
+    const form = document.forms['submit-to-google-sheet']
+    const msg = document.querySelector("#msg");
 
-  form.addEventListener('submit', e => {
-    e.preventDefault()
-    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-      .then(response => {
-        msg.innerHTML="Message sent successfully" 
-        setTimeout(function() {
-          msg.innerHTML="";
-      }, 5000)
-      form.reset();
+    form.addEventListener('submit', e => {
+        e.preventDefault()
+
+        // Immediate user feedback: show sending state and prevent duplicate clicks
+        const submitButton = form.querySelector("button[type='submit']");
+        let originalButtonHTML = null;
+        if (submitButton) {
+            originalButtonHTML = submitButton.innerHTML;
+            submitButton.disabled = true;
+            submitButton.innerHTML = 'Sending...';
+        }
+
+        msg.innerText = 'Sending...';
+
+        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+            .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok')
+                msg.innerText = "Message sent successfully";
+                form.reset();
+                setTimeout(function() {
+                    msg.innerText = "";
+                }, 5000)
+            })
+            .catch(error => {
+                console.error('Error!', error.message)
+                msg.innerText = 'Failed to send message. Please try again.'
+            })
+            .finally(() => {
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    // restore original button text if we changed it
+                    if (originalButtonHTML !== null) submitButton.innerHTML = originalButtonHTML;
+                }
+            })
     })
-      .catch(error => console.error('Error!', error.message))
-  })
 
 
   function seeMoreBtn(){

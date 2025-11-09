@@ -183,10 +183,11 @@ nav ul li:nth-child(5) { animation-delay: 0.9s; }
 @media only screen and (max-width: 808px) {
     .theme-toggle-wrapper {
         position: absolute;
-        left: 16px;
+        left: 16px; /* place toggle at top-left on smaller screens */
+        right: auto;
         top: 16px;
         margin-left: 0;
-        z-index: 1001;
+        z-index: 1002; /* higher than menu icon */
         background: none;
     }
     nav {
@@ -549,12 +550,14 @@ nav ul li a:hover::after{
 
  }
  .servicesList div{
-    background-color: #262626;
-    padding: 40px;
-    font-size: 13px;
-    font-weight: 300;
-    border-radius: 10px;
-    transition: background 0.5s,transform 0.5s;
+     background-color: var(--services-card-bg);
+     color: var(--services-card-text);
+     padding: 40px;
+     font-size: 13px;
+     font-weight: 300;
+     border-radius: 10px;
+     box-shadow: 0px 1px 22px #00000020;
+     transition: background 0.5s, transform 0.5s, color 0.3s;
  }
 
  .servicesList div i{
@@ -569,24 +572,24 @@ nav ul li a:hover::after{
  }
 
  .servicesList div a{
-    text-decoration: none;
-    color: #fff;
-    font-size: 12px;
-    margin-top: 20px;
-    display: inline-block;
+     text-decoration: none;
+     color: var(--btn-bg);
+     font-size: 12px;
+     margin-top: 20px;
+     display: inline-block;
  }
  .servicesList div a i{
-    font-size: 20px;
-    color:orangered;
-    
+     font-size: 20px;
+     color: var(--btn-bg);
  }
 
  .servicesList div:hover{
-    background-color: orangered;
-    transform: translateY(-10px);
+     background-color: var(--services-card-hover);
+     color: var(--btn-text);
+     transform: translateY(-10px);
  }
  .servicesList div:hover i{
-    color: white;
+     color: var(--btn-text);
  }
  .servicesList p{
     font-size: 17px;
@@ -758,6 +761,7 @@ form input , form textarea{
     color: #fff;
     font-size: 18px;
     border: 6px;
+    border-radius: 6px; /* added: soft rounded corners for contact inputs */
 }
 
 form .btn2{
@@ -779,6 +783,18 @@ form .btn2{
     background-color: #262626;
     font-weight: 300;
     margin-top: 20px;
+}
+
+.copyright .footer-meta{
+    margin-top: 6px;
+    font-size: 14px;
+    color: #fff; /* ensure footer meta is readable on dark footer background */
+    opacity: 0.9;
+}
+
+/* Ensure copyright text is visible regardless of theme (footer uses dark background) */
+.copyright, .copyright p{
+    color: #fff;
 }
 
 nav .fas{
@@ -803,8 +819,12 @@ nav .fas{
         font-size: 13px;
     }
     nav .fas{
-        display: block;
-        font-size: 25px;
+           display: block;
+           font-size: 25px;
+           position: absolute; /* ensure the hamburger/menu icon is positioned at top-right */
+           right: 16px;
+           top: 16px;
+           z-index: 1003;
     }
     nav ul{
         background-color: orangered;
@@ -823,8 +843,9 @@ nav .fas{
     }
     nav ul .fas{
         position: absolute;
-        top: 25px;
-        left: 25px;
+        top: 16px;
+        right: 16px; /* move mobile close/menu icon to the right */
+        left: auto;
         cursor: pointer;
     }
    .subtitle{
@@ -872,8 +893,17 @@ form .btn2 {
     width: 100%;
 }
 .header{
-    background-attachment: scroll;
+        background-attachment: scroll;
   }
+
+    /* Ensure pseudo-element background behaves well on small screens
+       (the image is set on .header::before). Make it scroll and position
+       toward the top so the person image is more fully visible on mobile. */
+    .header::before {
+        background-attachment: scroll;
+        background-position: center top;
+        background-size: cover;
+    }
 
  }
 
@@ -993,8 +1023,9 @@ form .btn2 {
     }
     nav ul .fas{
         position: absolute;
-        top: 25px;
-        left: 25px;
+        top: 16px;
+        right: 16px;
+        left: auto;
         cursor: pointer;
     }
  }
