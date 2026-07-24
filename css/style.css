@@ -283,8 +283,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 /* Icon shows the theme you'll switch TO */
 .theme-toggle__sun  { opacity: 0; transform: rotate(-90deg) scale(.4); }
 .theme-toggle__moon { opacity: 0; transform: rotate(90deg)  scale(.4); }
-[data-theme="dark"]  .theme-toggle__sun  { opacity: 1; transform: rotate(0) scale(1); }
-[data-theme="light"] .theme-toggle__moon { opacity: 1; transform: rotate(0) scale(1); }
+[data-mode="dark"]  .theme-toggle__sun  { opacity: 1; transform: rotate(0) scale(1); }
+[data-mode="light"] .theme-toggle__moon { opacity: 1; transform: rotate(0) scale(1); }
 
 /* Theme Selector Menu */
 .theme-selector { position: relative; display: flex; align-items: center; gap: 6px; }
