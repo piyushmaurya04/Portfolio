@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: 
+
+Sitemap: https://piyushmaurya-portfolio.netlify.app/sitemap.xml
+
+# Delay for bots (in seconds)
+Crawl-delay: 1
