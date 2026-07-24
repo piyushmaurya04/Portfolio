@@ -1,0 +1,34 @@
+PIYUSH MAURYA
+Maharashtra, India  |  piyush.maurya0410@gmail.com  |  +91 8600450745  |  LinkedIn  |  GitHub  |  Portfolio
+PROFESSIONAL SUMMARY
+Software Engineer skilled in building enterprise Java/Spring Boot applications and event-driven, fault-tolerant Kafka pipelines with DLQ handling. Solid foundation in SQL, production support, and CI/CD (Docker, Jenkins); recognized with a TCS GEMS Award for Best Team.
+TECHNICAL SKILLS
+Languages: Java, Python, JavaScript, SQL
+Backend & Messaging: Spring Boot, REST APIs, Apache Kafka, JDBC, Microservices, JWT Authentication, OAuth (SASL_SSL)
+DevOps & Tools: Git, Maven, Postman, Conjur, IntelliJ IDEA, Eclipse, Offset Explorer
+Frontend & Databases: HTML, CSS, JavaScript, React (Basic), Angular (Basic), MySQL, Oracle SQL (Basic)
+Practices: Agile/Scrum, Production Support, Dead Letter Queue (DLQ) Design, Bug Fixing & Root-Cause Analysis
+PROFESSIONAL EXPERIENCE
+Tata Consultancy Services (TCS)	Jan 2025 – Present
+System Engineer — Enterprise Client Account | Mumbai, India
+●	Enhanced an enterprise web application (PSS) by implementing new business features and fixing production defects, improving overall application stability and reliability.
+●	Designed and built four Spring Boot Kafka consumer services ingesting real-time distributor data across environment-specific topics, each processed via 3 parallel partitions per topic; the initial production load of 70K-93K messages per topic was consumed and persisted successfully within seconds of deployment.
+●	Implemented eventId-based deduplication against Oracle stored procedures (UPSERT/DELETE) to guarantee exactly-once writes, with full schema validation before persistence.
+●	Architected a two-tier fault-tolerance strategy — Spring-managed in-memory retry (5 attempts, 1-min backoff) for transient errors, plus immediate DLQ routing with throttled email alerts for malformed messages — and a scheduled DLQ reprocessor (every 2 hrs, up to 12 retries) that eliminated manual intervention and prevented data loss.
+●	Secured all Kafka connections with OAuth (SASL_SSL) and Conjur-managed credentials in Kubernetes, deployed consistently across four environments (DEV/LT/STG/PRD).
+●	Performed testing and validation during a Teradata-to-Snowflake data migration as part of an Agile team.
+●	Self-deployed all implementations to production by independently following the client's production deployment lifecycle end-to-end.
+PERSONAL PROJECTS
+Tenant & Owner Management System (TOM)	In Progress
+Tech Stack: Java, Spring Boot, Spring Data JPA (Hibernate), MySQL, Maven  |  Planned: Spring Security (JWT), React, Python/FastAPI
+●	Designed a normalized relational schema and REST APIs for an owner-managed property platform (Users, Properties, Leases), with correct JPA relationship ownership modeling and tenant-code-based lease linking.
+●	Engineered an anniversary-based, idempotent rent-billing engine using Spring Boot's @Scheduled, generating monthly invoices in arrears with month-end date clamping and duplicate-prevention via a DB unique constraint + application-level check.
+●	Implemented owner-configurable late-fee logic (grace period + per-day fine) and a payment-lifecycle state machine (PENDING → LATE → AWAITING_APPROVAL → PAID) for online and owner-approved cash payments.
+●	Designed dues/balance as a computed aggregate over unpaid rent rows rather than a stored total, avoiding data staleness and keeping financial calculations server-side.
+●	Planning JWT authentication with per-user data isolation, a React frontend, and a Python/FastAPI microservice using LLM function-calling for natural-language queries over the user's own data.
+EDUCATION
+Bachelor of Technology (B.Tech.), Computer Engineering	2020 – 2024
+SSVPS Bapusaheb Shivajirao Deore College of Engineering, Dhule
+ACHIEVEMENTS & CERTIFICATIONS
+●	Received the TCS GEMS Award for Best Team.
+●	Independently designed and deployed a production-ready Kafka consumer service with DLQ and auto-retry, adopted as a critical upstream data source  |  HackerRank Gold Badge in Java  |  CodeChef 2★  |  150+ DSA problems on LeetCode.
