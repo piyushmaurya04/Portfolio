@@ -16,18 +16,86 @@
     if (pre) setTimeout(() => pre.classList.add("is-done"), 500);
   });
 
-  /* ---------- Theme toggle ---------- */
+  /* ---------- Theme Selection ---------- */
   const root = document.documentElement;
   const themeToggle = $("#themeToggle");
-  const stored = localStorage.getItem("pm-theme");
-  const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  root.setAttribute("data-theme", stored || (systemDark ? "dark" : "dark")); // default dark
+  const themeMenuBtn = $("#themeMenuBtn");
+  const themeMenu = $("#themeMenu");
+  const themeSwatches = $$(".theme-swatch");
+  
+  const storedTheme = localStorage.getItem("pm-theme") || "dark-celadon";
+  root.setAttribute("data-theme", storedTheme);
+  
+  // Determine light/dark mode from theme name
+  const updateModeFromTheme = (theme) => {
+    const isLight = theme.startsWith("light-");
+    root.setAttribute("data-mode", isLight ? "light" : "dark");
+  };
+  updateModeFromTheme(storedTheme);
 
+  // Theme toggle (dark/light mode only)
   themeToggle?.addEventListener("click", () => {
-    const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
-    root.setAttribute("data-theme", next);
-    localStorage.setItem("pm-theme", next);
+    const currentTheme = root.getAttribute("data-theme");
+    const currentMode = currentTheme.startsWith("light-") ? "light" : "dark";
+    const newMode = currentMode === "dark" ? "light" : "dark";
+    
+    // Switch to same color family but opposite mode
+    const colorFamily = currentTheme.split("-")[1]; // e.g., "celadon", "aurora"
+    const colorMap = {
+      "celadon": { dark: "dark-celadon", light: "light-sky" },
+      "aurora": { dark: "dark-aurora", light: "light-rose" },
+      "ocean": { dark: "dark-ocean", light: "light-sky" },
+      "forest": { dark: "dark-forest", light: "light-lime" },
+      "sunset": { dark: "dark-sunset", light: "light-peach" }
+    };
+    
+    const family = colorMap[colorFamily] ? colorFamily : "celadon";
+    const newTheme = colorMap[family][newMode];
+    
+    root.setAttribute("data-theme", newTheme);
+    root.setAttribute("data-mode", newMode);
+    localStorage.setItem("pm-theme", newTheme);
+    highlightCurrentTheme();
   });
+
+  // Theme menu toggle
+  themeMenuBtn?.addEventListener("click", (e) => {
+    e.stopPropagation();
+    themeMenu?.classList.toggle("is-open");
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".theme-selector")) {
+      themeMenu?.classList.remove("is-open");
+    }
+  });
+
+  // Theme swatch selection
+  themeSwatches.forEach(swatch => {
+    swatch.addEventListener("click", () => {
+      const theme = swatch.dataset.theme;
+      root.setAttribute("data-theme", theme);
+      updateModeFromTheme(theme);
+      localStorage.setItem("pm-theme", theme);
+      themeMenu?.classList.remove("is-open");
+      highlightCurrentTheme();
+    });
+  });
+
+  // Highlight current theme
+  const highlightCurrentTheme = () => {
+    themeSwatches.forEach(swatch => {
+      if (swatch.dataset.theme === root.getAttribute("data-theme")) {
+        swatch.style.borderColor = "var(--accent)";
+      } else {
+        swatch.style.borderColor = "transparent";
+      }
+    });
+  };
+  
+  // Initial highlight
+  highlightCurrentTheme();
 
   /* ---------- Year ---------- */
   const yearEl = $("#year");

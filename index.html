@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="dark-celadon" data-mode="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -115,10 +115,57 @@
       </nav>
 
       <div class="nav__actions">
-        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
-          <svg class="theme-toggle__sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-          <svg class="theme-toggle__moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        </button>
+        <div class="theme-selector">
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light" title="Toggle dark/light mode">
+            <svg class="theme-toggle__sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+            <svg class="theme-toggle__moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </button>
+          <button class="theme-menu-btn" id="themeMenuBtn" aria-label="Color themes" title="Select color theme">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><circle cx="12" cy="12" r="2"/></svg>
+          </button>
+          <div class="theme-menu" id="themeMenu">
+            <div class="theme-menu__section">
+              <h4 class="theme-menu__label">Dark Themes</h4>
+              <div class="theme-menu__grid">
+                <button class="theme-swatch" data-theme="dark-celadon" data-mode="dark" style="background: linear-gradient(135deg, #c0ded9 0%, #b2c2bf 100%);" title="Celadon">
+                  <span class="sr-only">Celadon Dark</span>
+                </button>
+                <button class="theme-swatch" data-theme="dark-aurora" data-mode="dark" style="background: linear-gradient(135deg, #e89bc7 0%, #d97cc4 100%);" title="Aurora">
+                  <span class="sr-only">Aurora Dark</span>
+                </button>
+                <button class="theme-swatch" data-theme="dark-ocean" data-mode="dark" style="background: linear-gradient(135deg, #6ba3d4 0%, #4a8fc9 100%);" title="Ocean">
+                  <span class="sr-only">Ocean Dark</span>
+                </button>
+                <button class="theme-swatch" data-theme="dark-forest" data-mode="dark" style="background: linear-gradient(135deg, #5fa894 0%, #3d8b7a 100%);" title="Forest">
+                  <span class="sr-only">Forest Dark</span>
+                </button>
+                <button class="theme-swatch" data-theme="dark-sunset" data-mode="dark" style="background: linear-gradient(135deg, #f5a962 0%, #e8823d 100%);" title="Sunset">
+                  <span class="sr-only">Sunset Dark</span>
+                </button>
+              </div>
+            </div>
+            <div class="theme-menu__section">
+              <h4 class="theme-menu__label">Light Themes</h4>
+              <div class="theme-menu__grid">
+                <button class="theme-swatch" data-theme="light-sky" data-mode="light" style="background: linear-gradient(135deg, #87bdd8 0%, #5ba0c6 100%);" title="Sky">
+                  <span class="sr-only">Sky Light</span>
+                </button>
+                <button class="theme-swatch" data-theme="light-rose" data-mode="light" style="background: linear-gradient(135deg, #f5a3c7 0%, #e878b3 100%);" title="Rose">
+                  <span class="sr-only">Rose Light</span>
+                </button>
+                <button class="theme-swatch" data-theme="light-lime" data-mode="light" style="background: linear-gradient(135deg, #a8d873 0%, #7fc24f 100%);" title="Lime">
+                  <span class="sr-only">Lime Light</span>
+                </button>
+                <button class="theme-swatch" data-theme="light-lavender" data-mode="light" style="background: linear-gradient(135deg, #c8a8e8 0%, #b08dd9 100%);" title="Lavender">
+                  <span class="sr-only">Lavender Light</span>
+                </button>
+                <button class="theme-swatch" data-theme="light-peach" data-mode="light" style="background: linear-gradient(135deg, #f5c794 0%, #e8a96d 100%);" title="Peach">
+                  <span class="sr-only">Peach Light</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
         <a href="#" class="btn btn--sm btn--ghost" id="resumeBtn" title="Resume link coming soon">Resume</a>
         <button class="nav__burger" id="navBurger" aria-label="Menu" aria-expanded="false">
           <span></span><span></span><span></span>

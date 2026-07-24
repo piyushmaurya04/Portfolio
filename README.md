@@ -3,16 +3,20 @@
 Welcome to my personal portfolio website showcasing my expertise as a Senior Software Engineer specializing in Java, Spring Boot, Apache Kafka, and microservices architecture.
 
 ## 🔗 Live Portfolio
+
 Visit my portfolio: [https://piyushmaurya-portfolio.netlify.app/](https://piyushmaurya-portfolio.netlify.app/)
 
 ## 👨‍💻 About Me
+
 I'm **Piyush Maurya**, a passionate software engineer with expertise in:
+
 - **Backend Development**: Java, Spring Boot, Spring Framework
 - **Event-Driven Architecture**: Apache Kafka, message brokers
 - **Microservices**: Building scalable, distributed systems
 - **Enterprise Solutions**: Fault-tolerant, high-performance systems
 
 ## 🚀 Tech Stack
+
 - **Languages**: Java, Python, JavaScript
 - **Frameworks**: Spring Boot, Spring Cloud, Spring Data
 - **Message Brokers**: Apache Kafka
@@ -21,6 +25,7 @@ I'm **Piyush Maurya**, a passionate software engineer with expertise in:
 - **Tools**: Git, Maven, Gradle, Jenkins
 
 ## 📁 Project Structure
+
 ```
 ├── index.html           # Main portfolio page
 ├── css/                 # Styling
@@ -33,6 +38,7 @@ I'm **Piyush Maurya**, a passionate software engineer with expertise in:
 ```
 
 ## 🎨 Features
+
 - Fully responsive design
 - Dark/Light theme toggle
 - Interactive animations
@@ -42,9 +48,11 @@ I'm **Piyush Maurya**, a passionate software engineer with expertise in:
 - Mobile-first approach
 
 ## 📧 Contact
+
 Feel free to reach out to me at: **piyushmaurya0410@gmail.com**
 
 ## 📱 Connect With Me
+
 - GitHub: [@piyushmaurya04](https://github.com/piyushmaurya04)
 - LinkedIn: [Piyush Maurya](https://linkedin.com/in/piyushmaurya04)
 
