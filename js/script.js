@@ -22,39 +22,56 @@
   const themeMenuBtn = $("#themeMenuBtn");
   const themeMenu = $("#themeMenu");
   const themeSwatches = $$(".theme-swatch");
-  
-  const storedTheme = localStorage.getItem("pm-theme") || "dark-celadon";
+
+  const legacyThemeMap = {
+    "dark-celadon": "dark-midnight",
+    "dark-aurora": "dark-plum",
+    "dark-forest": "dark-emerald",
+    "dark-sunset": "dark-amber",
+    "light-sky": "light-azure",
+    "light-lime": "light-mint",
+    "light-lavender": "light-slate",
+    "light-peach": "light-sand"
+  };
+  const themePairs = {
+    "dark-midnight": "light-porcelain", "light-porcelain": "dark-midnight",
+    "dark-ocean": "light-azure", "light-azure": "dark-ocean",
+    "dark-graphite": "light-slate", "light-slate": "dark-graphite",
+    "dark-emerald": "light-mint", "light-mint": "dark-emerald",
+    "dark-plum": "light-rose", "light-rose": "dark-plum",
+    "dark-amber": "light-sand", "light-sand": "dark-amber"
+  };
+  const availableThemes = new Set(themeSwatches.map(({ dataset }) => dataset.theme));
+  const savedTheme = localStorage.getItem("pm-theme");
+  const storedTheme = availableThemes.has(legacyThemeMap[savedTheme] || savedTheme)
+    ? legacyThemeMap[savedTheme] || savedTheme
+    : "dark-midnight";
   root.setAttribute("data-theme", storedTheme);
-  
+
   // Determine light/dark mode from theme name
   const updateModeFromTheme = (theme) => {
     const isLight = theme.startsWith("light-");
     root.setAttribute("data-mode", isLight ? "light" : "dark");
+    themeToggle?.setAttribute("aria-label", `Switch to ${isLight ? "dark" : "light"} theme`);
+    themeToggle?.setAttribute("title", `Switch to ${isLight ? "dark" : "light"} theme`);
   };
   updateModeFromTheme(storedTheme);
+
+  const updateBrowserThemeColor = () => {
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+    if (themeColor) themeColor.content = getComputedStyle(root).getPropertyValue("--bg").trim();
+  };
+  updateBrowserThemeColor();
 
   // Theme toggle (dark/light mode only)
   themeToggle?.addEventListener("click", () => {
     const currentTheme = root.getAttribute("data-theme");
-    const currentMode = currentTheme.startsWith("light-") ? "light" : "dark";
-    const newMode = currentMode === "dark" ? "light" : "dark";
-    
-    // Switch to same color family but opposite mode
-    const colorFamily = currentTheme.split("-")[1]; // e.g., "celadon", "aurora"
-    const colorMap = {
-      "celadon": { dark: "dark-celadon", light: "light-sky" },
-      "aurora": { dark: "dark-aurora", light: "light-rose" },
-      "ocean": { dark: "dark-ocean", light: "light-sky" },
-      "forest": { dark: "dark-forest", light: "light-lime" },
-      "sunset": { dark: "dark-sunset", light: "light-peach" }
-    };
-    
-    const family = colorMap[colorFamily] ? colorFamily : "celadon";
-    const newTheme = colorMap[family][newMode];
+    const newTheme = themePairs[currentTheme] || "light-porcelain";
     
     root.setAttribute("data-theme", newTheme);
-    root.setAttribute("data-mode", newMode);
+    updateModeFromTheme(newTheme);
     localStorage.setItem("pm-theme", newTheme);
+    updateBrowserThemeColor();
     highlightCurrentTheme();
   });
 
@@ -78,6 +95,7 @@
       root.setAttribute("data-theme", theme);
       updateModeFromTheme(theme);
       localStorage.setItem("pm-theme", theme);
+      updateBrowserThemeColor();
       themeMenu?.classList.remove("is-open");
       highlightCurrentTheme();
     });
@@ -88,8 +106,10 @@
     themeSwatches.forEach(swatch => {
       if (swatch.dataset.theme === root.getAttribute("data-theme")) {
         swatch.style.borderColor = "var(--accent)";
+        swatch.setAttribute("aria-pressed", "true");
       } else {
         swatch.style.borderColor = "transparent";
+        swatch.setAttribute("aria-pressed", "false");
       }
     });
   };
