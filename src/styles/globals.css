@@ -1,0 +1,189 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink: #000000;
+  --bone: #efe9df;
+  --gilt: #c9a86a;
+}
+
+/* Lenis smooth-scroll baseline */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--bone);
+  font-family: 'Poppins', system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(201, 168, 106, 0.24);
+  color: #fff;
+}
+
+/* Accessible focus */
+:focus-visible {
+  outline: 1px solid rgba(201, 168, 106, 0.8);
+  outline-offset: 3px;
+}
+
+/* Procedural grain overlay (SVG fractal noise, overlay blend) */
+.grain::before {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* Barely-visible vertical architectural grid */
+.arch-grid {
+  background-image: linear-gradient(
+    to right,
+    rgba(239, 233, 223, 0.04) 1px,
+    transparent 1px
+  );
+  background-size: min(14vw, 190px) 100%;
+  -webkit-mask-image: radial-gradient(120% 90% at 50% 40%, #000 40%, transparent 90%);
+  mask-image: radial-gradient(120% 90% at 50% 40%, #000 40%, transparent 90%);
+}
+
+.spatial {
+  perspective: 1700px;
+}
+.spatial-inner {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+/* Glowing neon background object */
+.glow-cloud {
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.9))
+    drop-shadow(0 0 42px rgba(224, 232, 255, 0.62))
+    drop-shadow(0 0 96px rgba(200, 214, 255, 0.42));
+  animation: glow-float 13s ease-in-out infinite;
+}
+@keyframes glow-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-16px);
+  }
+}
+
+/* Perspective grid floor receding toward the horizon */
+.persp-grid {
+  position: absolute;
+  left: 50%;
+  bottom: -6vh;
+  width: 320%;
+  height: 62vh;
+  transform: translateX(-50%) perspective(300px) rotateX(62deg);
+  transform-origin: 50% 100%;
+  background-image:
+    linear-gradient(to right, rgba(201, 168, 106, 0.4) 1px, transparent 1px),
+    linear-gradient(to top, rgba(201, 168, 106, 0.4) 1px, transparent 1px);
+  background-size: 5vw 5vw;
+  -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, transparent 92%);
+  mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, transparent 92%);
+  animation: grid-flow 7s linear infinite;
+  will-change: background-position;
+}
+
+@keyframes grid-flow {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 5vw;
+  }
+}
+
+.eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+
+/* Hide scrollbar on the horizontal project carousel */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Subtle thin scrollbar for the project modal */
+.modal-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201, 168, 106, 0.35) transparent;
+}
+.modal-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.modal-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.modal-scroll::-webkit-scrollbar-thumb {
+  background: rgba(201, 168, 106, 0.32);
+  border-radius: 3px;
+}
+.modal-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(201, 168, 106, 0.5);
+}
+
+/* 3D perspective project carousel — cards recede toward the model (left) */
+.proj-viewport {
+  perspective: 1300px;
+  perspective-origin: 68% 50%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 44px 0;
+}
+.proj-track {
+  display: flex;
+  gap: 16px;
+  width: max-content;
+  transform-style: preserve-3d;
+  transform-origin: 100% 50%;
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+.proj-item {
+  flex: 0 0 220px;
+  scroll-snap-align: start;
+  transform-style: preserve-3d;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

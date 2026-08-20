@@ -1,0 +1,1682 @@
+You are a senior frontend engineer, creative developer, 3D web developer, UI/UX designer, and motion designer.
+
+I want you to build a complete premium interactive developer portfolio website in React.
+
+IMPORTANT:
+Do NOT create a generic AI-generated developer portfolio.
+Do NOT create a standard navbar + hero + cards + skills + projects layout.
+Do NOT use generic gradients, glowing blue/purple SaaS styling, glassmorphism everywhere, or standard Tailwind dashboard components.
+
+The website must feel like a high-end creative digital studio / editorial portfolio with a cinematic real-time 3D scene.
+
+I am providing you with:
+
+1. A reference website/video/screenshot that establishes the visual and interaction direction.
+2. A 3D .GLB model of my developer character with laptop.
+3. The actual View Page Source of the reference website has also been analyzed separately.
+
+You should reproduce the DESIGN LANGUAGE and INTERACTION BEHAVIOR of the reference, not copy its branding, text, assets, business identity, or source code.
+
+============================================================
+                    CORE OBJECTIVE
+============================================================
+
+Create a cinematic scroll-driven developer portfolio where my supplied .GLB developer/laptop model replaces the chess/horse-like 3D hero object from the reference experience.
+
+The 3D character must remain part of one persistent WebGL scene throughout the experience.
+
+As the user scrolls:
+
+- the 3D developer moves through the scene
+- the camera changes position/zoom/perspective
+- the lighting changes subtly
+- the large white glowing background graphic changes position/scale
+- the white light produces realistic reflections/highlights on the laptop and character
+- typography enters/exits
+- content changes
+- panels/cards move in 3D space
+- scenes transition continuously
+- the user should feel like they are moving through ONE cinematic environment rather than navigating disconnected webpage sections.
+
+The final result should feel intentional, art-directed, premium, restrained, cinematic, and professionally engineered.
+
+============================================================
+                 TECHNOLOGY STACK
+============================================================
+
+Use:
+
+- React
+- Vite
+- TypeScript
+- Tailwind CSS
+- Three.js
+- React Three Fiber
+- @react-three/drei
+- GSAP
+- GSAP ScrollTrigger
+- Lenis for smooth scrolling
+- @react-three/postprocessing where useful
+- GLTF/GLB loading through React Three Fiber / useGLTF
+- Lucide React for icons if icons are required
+
+Do NOT add unnecessary dependencies.
+
+Use normal CSS alongside Tailwind where CSS is better suited for:
+- noise
+- gradients
+- clip-path
+- complex pseudo-elements
+- custom fonts
+- special visual effects
+- 3D scene wrappers
+
+Tailwind should handle the majority of UI/layout styling.
+
+============================================================
+                 VERY IMPORTANT ARCHITECTURE
+============================================================
+
+Do NOT create a separate Three.js canvas for every section.
+
+Create ONE persistent WebGL/R3F scene.
+
+Conceptually:
+
+App
+ ├── GlobalBackground
+ ├── TopNavigation
+ ├── DesktopSideNavigation
+ ├── ScrollExperience
+ │    ├── PersistentWebGLScene
+ │    │    ├── DeveloperGLB
+ │    │    ├── Camera
+ │    │    ├── WhiteBackgroundGraphic
+ │    │    ├── AreaLights
+ │    │    ├── RimLights
+ │    │    ├── FillLights
+ │    │    ├── Environment
+ │    │    └── PostProcessing
+ │    │
+ │    └── HTMLSceneContent
+ │         ├── Hero
+ │         ├── Experience
+ │         ├── Skills
+ │         ├── Projects
+ │         ├── Engineering
+ │         ├── Activity
+ │         └── Contact
+ └── Footer
+
+The 3D scene must persist.
+
+Do not unmount/remount the GLB when changing sections.
+
+The scene state should change according to normalized scroll progress.
+
+============================================================
+                    THE GLB MODEL
+============================================================
+
+I will provide the .GLB file.
+
+Use MY supplied GLB.
+
+Do not replace it with:
+- a placeholder cube
+- a generic human model
+- a stock laptop
+- a random 3D character
+- a generated image
+
+Inspect the GLB before implementing the scene.
+
+Determine:
+- model dimensions
+- orientation
+- materials
+- meshes
+- material names
+- textures
+- whether the laptop has separate meshes
+- whether the screen/photo is already part of the material
+- whether materials are metallic/rough
+- whether any materials need adjustment
+
+Preserve the model's existing appearance wherever possible.
+
+Do not alter or remove the image/photo already present on the laptop display.
+
+The laptop display/photo must remain visible.
+
+The model should be presented as the main hero visual.
+
+============================================================
+               THE WHITE LIGHT / GLOW SYSTEM
+============================================================
+
+THIS IS EXTREMELY IMPORTANT.
+
+The reference does NOT look like a black 3D object placed over a white PNG.
+
+The bright white graphic behind the 3D object is part of the visual lighting composition.
+
+I want the same visual principle.
+
+Create a large white abstract developer-themed graphic behind the GLB.
+
+Possible graphic:
+
+< />
+
+or
+
+{ }
+
+or a large custom abstract coding symbol.
+
+Prefer SVG for the graphic.
+
+The graphic should have:
+
+- white core
+- soft bloom
+- subtle glow
+- large scale
+- low visual detail
+- partially cropped by viewport
+- cinematic placement behind the character
+
+BUT:
+
+Do NOT rely only on the SVG/emissive graphic to illuminate the GLB.
+
+Create ACTUAL LIGHT SOURCES.
+
+The lighting system should include approximately:
+
+1. Large white AreaLight / RectAreaLight behind or slightly behind the GLB
+2. Soft fill light from the front
+3. Rim light from behind/side
+4. Subtle environment lighting/HDRI if necessary
+5. Optional additional controlled area light for laptop reflections
+
+The white graphic should visually appear to be the source of the light.
+
+The actual AreaLight should produce realistic highlights/reflections on:
+- laptop body
+- laptop edges
+- screen
+- watch/accessories if present
+- clothing/materials
+- face/skin where appropriate
+
+The lighting must be subtle and realistic.
+
+Do NOT make the entire character pure white.
+
+Do NOT overexpose the GLB.
+
+Do NOT create cheap neon lighting.
+
+The goal is:
+
+BLACK/DARK 3D OBJECT
++
+WHITE CINEMATIC BACKLIGHT
++
+SUBTLE REALISTIC REFLECTION
++
+DARK ENVIRONMENT
+
+============================================================
+                 MATERIAL / REFLECTION SYSTEM
+============================================================
+
+Inspect the GLB materials.
+
+If appropriate, adjust roughness/metalness only where needed.
+
+The laptop should have controlled reflections.
+
+Avoid making every material metallic.
+
+For example:
+
+Laptop:
+- moderately reflective
+- controlled roughness
+
+Clothing:
+- mostly matte
+- slight specular response
+
+Metal accessories:
+- more reflective
+
+Screen:
+- reflective/glossy but not mirror-like
+
+Skin:
+- realistic but restrained
+
+Do not destroy the original material appearance.
+
+Use physically plausible Three.js materials wherever possible.
+
+============================================================
+                    POST PROCESSING
+============================================================
+
+Use post-processing carefully.
+
+Possible effects:
+
+- Bloom
+- subtle vignette
+- very subtle noise/grain
+
+Bloom should mainly affect:
+- white background graphic
+- strong light source
+- selected emissive elements
+
+Do NOT bloom the entire scene.
+
+Do NOT make the page look like a gaming website.
+
+The final look must remain premium and editorial.
+
+============================================================
+                  BACKGROUND SYSTEM
+============================================================
+
+The background should be near-black.
+
+Use a layered background system.
+
+Layer 1:
+Near-black base.
+
+Approximate direction:
+#050505 / #060606
+
+Layer 2:
+Subtle radial illumination around the central hero area.
+
+Layer 3:
+Very subtle vertical architectural grid.
+
+The grid should be barely visible.
+
+It should look like:
+
+|        |        |        |
+|        |        |        |
+|        |        |        |
+
+Do NOT make the grid bright.
+
+Layer 4:
+Very subtle procedural grain/noise.
+
+Prefer an SVG feTurbulence/noise overlay similar in spirit to the reference.
+
+The reference source uses a procedural SVG fractal-noise overlay with overlay blending.
+
+Layer 5:
+Subtle vignette around the viewport edges.
+
+The reference uses a radial-gradient vignette that darkens the edges.
+
+Layer 6:
+3D white glow/light.
+
+Layer 7:
+3D developer model.
+
+Layer 8:
+HTML UI and typography.
+
+============================================================
+                    COLOR SYSTEM
+============================================================
+
+Do NOT introduce random colors.
+
+Use a restrained monochromatic palette with a subtle warm accent.
+
+Create semantic color tokens.
+
+Example:
+
+--color-ink:
+very dark background
+
+--color-bone:
+warm off-white primary text
+
+--color-gilt:
+subtle warm gold/beige accent
+
+--color-muted:
+low-opacity bone/gray
+
+Use opacity variations extensively.
+
+For example:
+
+bone/90
+bone/70
+bone/50
+bone/30
+bone/15
+bone/10
+
+The reference source uses semantic tokens such as:
+- bone
+- ink
+- gilt
+
+Recreate that philosophy.
+
+The gold/beige accent should be used primarily for:
+- section numbers
+- eyebrow labels
+- active indicators
+- tiny highlights
+
+Do NOT use bright yellow.
+
+============================================================
+                      TYPOGRAPHY
+============================================================
+
+Use two main fonts.
+
+DISPLAY FONT:
+Libre Baskerville
+
+UI/BODY FONT:
+Poppins
+
+This is intentional.
+
+Libre Baskerville should be used for:
+- huge hero headings
+- section headings
+- important editorial titles
+- selected italic emphasis
+
+Poppins should be used for:
+- navigation
+- body copy
+- labels
+- metadata
+- statistics labels
+- buttons
+- keyboard hints
+
+Display typography should be large and elegant.
+
+Use responsive clamp() typography.
+
+Example concept:
+
+font-size:
+clamp(3rem, 8vw, 7rem)
+
+Do not use huge typography everywhere.
+
+Typography hierarchy must remain controlled.
+
+============================================================
+                   DESIGN LANGUAGE
+============================================================
+
+The visual style must be:
+
+- cinematic
+- editorial
+- luxury
+- minimal
+- dark
+- technical
+- architectural
+- sophisticated
+- spacious
+
+Avoid:
+- generic SaaS cards
+- excessive rounded corners
+- colorful gradients
+- blue/purple AI aesthetics
+- excessive glassmorphism
+- excessive shadows
+- emojis
+- generic developer illustrations
+- skill percentage bars
+- generic testimonial cards
+- "Hire Me" templates
+- template-like layouts
+
+Use:
+- thin borders
+- large whitespace
+- oversized serif typography
+- tiny uppercase metadata
+- subtle grid
+- controlled glow
+- carefully positioned 3D character
+- editorial composition
+- asymmetry
+- negative space
+
+============================================================
+                     NAVIGATION
+============================================================
+
+Desktop:
+
+Create a floating pill-shaped top navigation similar in visual weight to the reference.
+
+It should be:
+- centered
+- fixed
+- dark translucent
+- subtle border
+- rounded/pill shaped
+- lightly blurred
+- compact
+- not oversized
+
+Example navigation:
+
+HOME
+EXPERIENCE
+PROJECTS
+SKILLS
+ENGINEERING
+CONTACT
+
+Add a compact CTA:
+LET'S CONNECT
+
+Do not make the CTA bright blue.
+
+Use the same monochromatic system.
+
+Desktop should also have a left-side section navigation.
+
+Example:
+
+ON THIS PAGE
+
+01  Start
+02  Experience
+03  Projects
+04  Engineering
+05  Skills
+06  Activity
+07  Contact
+
+The active section should be represented through:
+- brighter text
+- longer horizontal line
+- subtle accent color
+
+Do not use large pills.
+
+The navigation should remain minimal.
+
+============================================================
+                KEYBOARD NAVIGATION
+============================================================
+
+Recreate the spirit of the reference.
+
+Support:
+
+Arrow Up
+Arrow Down
+W
+S
+
+to change scenes/sections.
+
+Use:
+K
+
+to jump to Contact.
+
+Do not interfere with typing inside:
+- inputs
+- textareas
+- contenteditable elements
+
+Show the keyboard hint subtly on desktop.
+
+Hide it on mobile.
+
+============================================================
+                  SCROLL EXPERIENCE
+============================================================
+
+This is the most important part.
+
+The page must NOT behave like a normal long page where every section simply slides vertically.
+
+Create a cinematic scroll experience.
+
+Use GSAP ScrollTrigger.
+
+Use a long scroll container.
+
+Pin the primary experience when appropriate.
+
+Map scroll progress to scene progress.
+
+Conceptually:
+
+scroll
+ ↓
+0.0 → Hero
+0.1 → Hero transition
+0.2 → Experience
+0.3 → Experience transition
+0.4 → Projects
+0.5 → Engineering
+0.6 → Skills
+0.7 → Activity
+0.8 → Contact
+1.0 → Footer
+
+The exact scroll distances can be tuned during implementation.
+
+============================================================
+                 SCENE TRANSITIONS
+============================================================
+
+Every transition should feel continuous.
+
+DO NOT do:
+
+section A fades out
+section B fades in
+section C fades in
+
+That will look generic.
+
+Instead:
+
+The existing composition should transform into the next composition.
+
+For example:
+
+SCENE A:
+Developer is centered/right.
+
+During scroll:
+- developer moves right
+- camera pulls back
+- background white graphic moves left
+- heading moves/fades
+- next heading begins entering
+- lighting subtly changes
+- new content emerges
+
+SCENE B:
+Developer settles into new position.
+
+Then the next transition begins.
+
+This is a shared-world/shared-object transition.
+
+============================================================
+                 3D CHARACTER ANIMATION
+============================================================
+
+The GLB is the persistent visual anchor.
+
+Animate it through scenes using:
+- position
+- rotation
+- scale
+- Z-depth
+
+Avoid extreme rotation.
+
+The developer should remain physically believable.
+
+Use subtle rotations:
+- ±1–3 degrees for cinematic movement
+- larger rotations only if visually justified
+
+Do not make the character spin like a product viewer.
+
+The user should feel like the camera/world is moving around the character.
+
+============================================================
+                     CAMERA ANIMATION
+============================================================
+
+The camera is extremely important.
+
+Do not only move the model.
+
+Use camera movement as well.
+
+Possible scene properties:
+
+Hero:
+- medium distance
+- model large
+- slightly off-center
+
+Experience:
+- camera pulls slightly back
+- model moves right
+
+Projects:
+- camera shifts laterally
+- model becomes supporting visual
+
+Engineering:
+- camera changes angle subtly
+- 3D depth becomes more apparent
+
+Contact:
+- camera returns to a strong hero composition
+
+Use GSAP to interpolate camera position/target.
+
+Do not create abrupt camera jumps.
+
+Camera transitions should be smooth and cinematic.
+
+============================================================
+                 LIGHTING ANIMATION
+============================================================
+
+The lighting should also respond to scroll.
+
+For different scenes:
+
+Scene 1:
+strong white backlight
+
+Scene 2:
+backlight shifts slightly
+
+Scene 3:
+side/rim light becomes stronger
+
+Scene 4:
+white glow moves behind model
+
+Scene 5:
+model becomes slightly darker/supporting
+
+Scene 6:
+stronger rim light
+
+Scene 7:
+hero/contact lighting returns
+
+These changes must be subtle.
+
+Do not make the lighting obviously "flash".
+
+============================================================
+                 BACKGROUND GRAPHIC
+============================================================
+
+Create one large abstract white coding graphic.
+
+Prefer:
+
+< />
+
+or a stylized:
+
+{ }
+
+or an abstract developer symbol.
+
+It should behave similarly to the large white visual element in the reference.
+
+It must:
+- sit behind the 3D model
+- be partially cropped
+- move with scroll
+- scale with scroll
+- have soft bloom
+- contribute to the lighting composition
+
+IMPORTANT:
+
+The graphic should not look like a normal website icon.
+
+It must be huge and treated as an environmental art element.
+
+============================================================
+                   HERO SECTION
+============================================================
+
+Hero content:
+
+Piyush Maurya
+
+Java Developer / Software Engineer
+
+Use a small eyebrow:
+
+00 — SOFTWARE ENGINEER
+
+Main heading should use Libre Baskerville.
+
+Example:
+
+BUILDING
+SYSTEMS THAT
+WORK.
+
+Or a similar strong developer-oriented statement.
+
+Supporting text:
+
+Java • Spring Boot • Kafka • React • SQL
+
+Keep the copy concise.
+
+Do not make the hero look like a resume.
+
+The 3D developer should be the main visual element.
+
+============================================================
+                 EXPERIENCE SCENE
+============================================================
+
+Create an editorial experience section.
+
+Example:
+
+01 — EXPERIENCE
+
+Building scalable software
+with Java and Spring Boot.
+
+TCS
+System Engineer
+
+2025 — Present
+
+Use concise information.
+
+Do not use a generic timeline component.
+
+The information should be integrated into the scene.
+
+Use thin rules and typography.
+
+============================================================
+                  PROJECTS SCENE
+============================================================
+
+Create a premium project showcase.
+
+Do not use giant generic cards.
+
+Use a restrained editorial grid.
+
+Projects can include:
+
+1. Expense Tracker
+   Spring Boot + React + MySQL
+
+2. Hospital Management
+   Java + JDBC + MySQL
+
+3. Chat Application
+   Xamarin / C#
+
+4. Weather Application
+   API + JavaScript
+
+5. Tenant Owner Management
+   Spring Boot + React + Kafka
+
+Project cards should use:
+- subtle image
+- thin border
+- dark translucent surface
+- small metadata
+- elegant title
+- short description
+- small external arrow
+
+On hover:
+- image scale around 1.03–1.04
+- subtle overlay
+- border becomes slightly brighter
+- arrow moves slightly
+
+Keep hover animation around 300–700ms.
+
+============================================================
+                 ENGINEERING SCENE
+============================================================
+
+This is an important part of the portfolio.
+
+Show technical capability in an editorial way.
+
+Technologies:
+
+Java
+Spring Boot
+Kafka
+React
+JavaScript
+SQL
+MySQL
+MongoDB
+Oracle
+HTML
+CSS
+
+Also mention:
+
+- REST APIs
+- Kafka integration
+- distributed systems
+- backend development
+- database integration
+
+Do not create standard skill cards.
+
+Use:
+- numbered rows
+- thin separators
+- large typography
+- subtle 3D perspective
+
+============================================================
+                    SKILLS SCENE
+============================================================
+
+Create a visual composition around:
+
+JAVA
+SPRING BOOT
+KAFKA
+REACT
+SQL
+
+The technologies should appear as part of the scene rather than a boring list.
+
+The 3D developer can move into the background.
+
+Use subtle depth.
+
+============================================================
+                  ACTIVITY SCENE
+============================================================
+
+Create a GitHub/contribution-inspired activity visualization.
+
+Use a dark grid of small cells.
+
+Keep it visually consistent.
+
+Show:
+
+2025 / 2026
+
+Developer Activity
+
+Do not fabricate fake statistics that look misleading.
+
+If data isn't available, use clearly labeled representative/static portfolio data.
+
+Use CSS/HTML for the visualization rather than a heavy charting library unless needed.
+
+Apply subtle 3D perspective like the reference.
+
+============================================================
+                    CONTACT SCENE
+============================================================
+
+Create a strong final CTA.
+
+Example:
+
+READY TO
+BUILD SOMETHING
+GREAT?
+
+Small description.
+
+Button:
+
+LET'S CONNECT →
+
+The CTA should be elegant and monochromatic.
+
+No bright blue CTA.
+
+Bring the 3D developer back into a strong hero composition.
+
+The white background glow should return.
+
+============================================================
+                       FOOTER
+============================================================
+
+Minimal footer.
+
+Include:
+
+Piyush Maurya
+
+Java Developer / Software Engineer
+
+GitHub
+LinkedIn
+Email
+
+Keep it restrained.
+
+============================================================
+                3D CSS PANELS
+============================================================
+
+For appropriate content panels, recreate the reference's subtle spatial treatment.
+
+Use:
+
+perspective: 1700px;
+transform-style: preserve-3d;
+backface-visibility: hidden;
+
+Possible transforms:
+
+translateY(...)
+translateZ(...)
+rotateX(...)
+rotateY(...)
+rotateZ(...)
+
+But keep the effect subtle.
+
+The purpose is to create depth, not make panels look like floating game objects.
+
+============================================================
+                  TEXT ANIMATION
+============================================================
+
+Implement elegant text reveals.
+
+Headings should not simply appear instantly.
+
+Use:
+- opacity
+- translateY
+- optional slight translateZ
+- optional character/word stagger
+
+Example initial state:
+
+opacity: 0
+transform: translateY(40px)
+
+Then animate into:
+
+opacity: 1
+transform: translateY(0)
+
+Use GSAP.
+
+For hero text, character/word-level animation is encouraged.
+
+Do not overanimate.
+
+The animation should feel like an editorial film title.
+
+============================================================
+                    EASING
+============================================================
+
+Use sophisticated easing.
+
+Prefer:
+- power2.out
+- power3.out
+- power3.inOut
+- custom cubic-bezier where appropriate
+
+Avoid:
+- bounce
+- elastic
+- exaggerated spring animations
+- linear movement for major scene transitions
+
+============================================================
+                 SCROLL PERFORMANCE
+============================================================
+
+Performance is critical.
+
+Do NOT update React state on every scroll frame.
+
+Avoid:
+
+setState(scrollPosition)
+
+for high-frequency animation.
+
+Use GSAP/refs/direct animation values.
+
+Use transforms whenever possible.
+
+Prefer:
+transform
+opacity
+
+Avoid repeatedly animating:
+top
+left
+width
+height
+margin
+
+Use:
+translate3d()
+scale()
+rotate()
+
+where appropriate.
+
+Use will-change selectively.
+
+Do not put will-change on everything.
+
+============================================================
+                    WEBGL PERFORMANCE
+============================================================
+
+Optimize the GLB.
+
+If possible:
+- use compressed textures
+- optimize texture sizes
+- use DRACO/Meshopt only if practical
+- avoid unnecessarily huge textures
+- avoid excessive polygon counts
+- dispose unused resources
+- cap pixel ratio on high-DPI displays
+
+Use something like:
+
+dpr={[1, 1.5]}
+
+or another sensible cap.
+
+Do not allow a 4x DPR mobile screen to destroy performance.
+
+============================================================
+                     RESPONSIVENESS
+============================================================
+
+Desktop is the primary experience.
+
+But mobile must be intentionally redesigned.
+
+Do NOT simply shrink desktop.
+
+Desktop:
+- full 3D composition
+- large character
+- side navigation
+- complex camera movement
+- full background graphic
+
+Tablet:
+- simplified 3D composition
+- reduced character scale
+- simplified side navigation
+
+Mobile:
+- no desktop side navigation
+- compact mobile navigation
+- reduced 3D movement
+- simplified camera
+- smaller background graphic
+- content becomes more linear
+- preserve the visual identity
+
+The source/reference philosophy is:
+desktop gets the full spatial composition,
+mobile gets a flatter and calmer composition.
+
+Follow this principle.
+
+============================================================
+                REDUCED MOTION
+============================================================
+
+Respect:
+
+prefers-reduced-motion: reduce
+
+When reduced motion is enabled:
+- minimize or disable cinematic transitions
+- reduce camera movement
+- reduce model movement
+- remove unnecessary parallax
+- keep content fully accessible
+- provide a static visual composition
+
+Do not make accessibility an afterthought.
+
+============================================================
+                  ACCESSIBILITY
+============================================================
+
+Use semantic HTML.
+
+Use:
+<header>
+<nav>
+<main>
+<section>
+<footer>
+
+Proper h1/h2/h3 hierarchy.
+
+Buttons must be real buttons.
+
+Links must be real links.
+
+Provide:
+- aria-labels where needed
+- keyboard focus
+- visible focus states
+- sufficient contrast
+- skip-to-content
+- keyboard navigation
+
+Do not make the entire website dependent on mouse interaction.
+
+============================================================
+                     SEO
+============================================================
+
+Add:
+- title
+- meta description
+- Open Graph metadata
+- semantic headings
+- proper alt text
+- favicon
+
+Example title:
+
+Piyush Maurya — Java Developer
+
+Description:
+
+Java developer specializing in Spring Boot, Kafka, React, backend systems and modern web experiences.
+
+============================================================
+                    CODE QUALITY
+============================================================
+
+Use TypeScript.
+
+Do not put the entire website inside App.tsx.
+
+Create reusable components.
+
+Suggested structure:
+
+src/
+  components/
+    navigation/
+    scene/
+    ui/
+    projects/
+    typography/
+
+  three/
+    DeveloperModel.tsx
+    CameraRig.tsx
+    Lighting.tsx
+    Environment.tsx
+    BackgroundGraphic.tsx
+    WebGLScene.tsx
+
+  scenes/
+    HeroScene.tsx
+    ExperienceScene.tsx
+    ProjectsScene.tsx
+    EngineeringScene.tsx
+    SkillsScene.tsx
+    ActivityScene.tsx
+    ContactScene.tsx
+
+  animation/
+    scrollTimeline.ts
+    sceneConfig.ts
+    textAnimations.ts
+
+  data/
+    projects.ts
+    experience.ts
+    skills.ts
+
+  styles/
+    globals.css
+
+Keep scene configuration data-driven.
+
+============================================================
+                  SCENE CONFIGURATION
+============================================================
+
+Create a central scene configuration.
+
+Conceptually:
+
+const scenes = {
+  hero: {
+    modelPosition: [...],
+    modelRotation: [...],
+    modelScale: ...,
+    cameraPosition: [...],
+    cameraTarget: [...],
+    lightPosition: [...],
+    glowPosition: [...],
+    glowScale: ...
+  },
+
+  experience: {
+    ...
+  },
+
+  projects: {
+    ...
+  }
+}
+
+This makes tuning the cinematic transitions much easier.
+
+Do NOT scatter random numeric animation values across 20 components.
+
+============================================================
+                 IMPORTANT 3D RULE
+============================================================
+
+The HTML UI and WebGL scene should coexist.
+
+The 3D character should not contain text.
+
+Do not render the typography inside Three.js unless absolutely necessary.
+
+Use HTML/CSS for:
+- headings
+- body text
+- navigation
+- cards
+- stats
+- buttons
+
+Use Three.js for:
+- GLB
+- lights
+- camera
+- reflections
+- shadows
+- 3D graphic
+- 3D environmental elements
+
+============================================================
+                Z-INDEX / LAYERING
+============================================================
+
+Recommended conceptual order:
+
+z-index 0:
+background
+
+z-index 1:
+grain/grid
+
+z-index 2:
+WebGL
+
+z-index 3:
+large HTML decorative elements
+
+z-index 10:
+scene content
+
+z-index 20:
+side navigation
+
+z-index 30:
+top navigation
+
+z-index 40:
+mobile menu
+
+Do not accidentally place HTML text behind the WebGL canvas.
+
+============================================================
+                  LOADING EXPERIENCE
+============================================================
+
+The GLB may take time to load.
+
+Create a minimal loading state.
+
+Do NOT show a generic spinner.
+
+Use something editorial such as:
+
+LOADING EXPERIENCE
+01
+02
+03
+
+or a subtle progress indicator.
+
+Once the model and essential assets are ready:
+- fade the loading layer
+- reveal the hero
+- start the intro animation
+
+Do not block the user with an ugly loading screen.
+
+============================================================
+                ERROR HANDLING
+============================================================
+
+If the GLB fails:
+- show a graceful fallback
+- do not crash the entire React app
+- log a useful error
+- keep HTML content accessible
+
+If WebGL isn't available:
+- provide a flat/static version of the portfolio
+
+============================================================
+                    ASSET PATHS
+============================================================
+
+Place my model here:
+
+/public/models/developer.glb
+
+Do not hardcode external URLs for the model.
+
+If textures are separate, preserve the correct relative paths.
+
+If the GLB contains embedded textures, use it directly.
+
+============================================================
+                  NETLIFY DEPLOYMENT
+============================================================
+
+The project must build correctly with:
+
+npm run build
+
+The output should be compatible with Netlify.
+
+Use Vite.
+
+Ensure:
+- assets are correctly referenced
+- GLB loads from production
+- fonts load correctly
+- client-side routing does not break deployment
+- no localhost URLs
+- no development-only dependencies required at runtime
+
+If needed, create:
+
+netlify.toml
+
+with the appropriate Vite configuration.
+
+============================================================
+                   PERFORMANCE TARGET
+============================================================
+
+Target:
+
+Desktop:
+smooth 60 FPS where practical.
+
+Mobile:
+prioritize stability over maximum effects.
+
+Do not sacrifice usability to maintain every desktop effect.
+
+Use:
+- optimized GLB
+- limited DPR
+- efficient lights
+- minimal postprocessing
+- transform-based animation
+- lazy-loaded secondary content where appropriate
+
+============================================================
+              DO NOT FAKE THE 3D EXPERIENCE
+============================================================
+
+Do not:
+- render the GLB to a video
+- use a video pretending to be 3D
+- use a sequence of screenshots
+- use a PNG replacement
+- use CSS-only fake reflections
+
+The character must genuinely render through WebGL.
+
+The white glow must genuinely participate in the lighting composition.
+
+The laptop must receive actual light/reflection from the scene.
+
+============================================================
+              VISUAL QUALITY REQUIREMENT
+============================================================
+
+The final result must NOT look like:
+
+"developer portfolio generated by AI"
+
+It should look like:
+
+"a premium digital studio created a highly art-directed portfolio for a software engineer."
+
+Every element must have a reason to exist.
+
+Use restraint.
+
+If an effect doesn't improve the experience, don't add it.
+
+============================================================
+                   IMPLEMENTATION ORDER
+============================================================
+
+Do NOT immediately generate the entire project blindly.
+
+Work in this order:
+
+PHASE 1:
+Inspect the provided GLB.
+
+Determine:
+- dimensions
+- orientation
+- materials
+- textures
+- screen
+- model center
+- ideal camera position
+
+PHASE 2:
+Build the base environment:
+- background
+- grid
+- grain
+- vignette
+- fonts
+- navigation
+
+PHASE 3:
+Build the WebGL scene:
+- GLB
+- camera
+- white background graphic
+- AreaLight
+- rim light
+- fill light
+- environment
+- shadows
+- bloom
+
+PHASE 4:
+Perfect the HERO composition.
+
+Do not proceed until the hero feels premium.
+
+PHASE 5:
+Implement the scroll engine.
+
+Create:
+- pinned experience
+- normalized scroll progress
+- scene interpolation
+
+PHASE 6:
+Add scene transitions.
+
+PHASE 7:
+Add HTML content.
+
+PHASE 8:
+Add micro-interactions.
+
+PHASE 9:
+Add responsive behavior.
+
+PHASE 10:
+Add reduced-motion fallback.
+
+PHASE 11:
+Optimize performance.
+
+PHASE 12:
+Test production build.
+
+============================================================
+                ITERATION REQUIREMENT
+============================================================
+
+After implementing the first version, inspect the result critically.
+
+Look specifically for:
+
+1. Is the GLB too large?
+2. Is the character covering text?
+3. Does the white light actually create reflections?
+4. Is the glow too strong?
+5. Does the character look pasted into the scene?
+6. Does the background feel too flat?
+7. Is the grid too visible?
+8. Is typography too small?
+9. Are transitions too fast?
+10. Does the scene feel continuous?
+11. Does the page look like a generic portfolio?
+12. Does the 3D object feel like the visual anchor?
+13. Does mobile remain usable?
+14. Is scrolling smooth?
+15. Is FPS acceptable?
+
+Fix these issues before considering the project complete.
+
+============================================================
+                  FINAL EXPERIENCE
+============================================================
+
+The final experience should feel approximately like:
+
+OPEN WEBSITE
+    ↓
+dark cinematic environment
+    ↓
+developer GLB appears
+    ↓
+large white coding graphic glows behind it
+    ↓
+white light reflects naturally on laptop/character
+    ↓
+hero typography appears
+    ↓
+user scrolls
+    ↓
+developer moves
+    ↓
+camera shifts
+    ↓
+white glow moves
+    ↓
+lighting changes
+    ↓
+hero content transforms
+    ↓
+experience appears
+    ↓
+projects enter through spatial composition
+    ↓
+engineering/skills appear
+    ↓
+activity visualization appears
+    ↓
+developer returns to strong hero position
+    ↓
+contact CTA
+    ↓
+minimal footer
+
+The entire website should feel like ONE continuous cinematic environment.
+
+============================================================
+                    FINAL RULE
+============================================================
+
+Do not give me a generic portfolio.
+
+Do not simplify the design into ordinary sections.
+
+Do not replace the 3D experience with images.
+
+Do not remove the white reflective lighting.
+
+Do not remove the cinematic scroll transitions.
+
+Do not make the character rotate excessively.
+
+Do not add random colors.
+
+Do not use generic AI-generated visual patterns.
+
+Use the supplied GLB as the hero visual.
+
+Reproduce the reference website's interaction philosophy, spatial composition, lighting behavior, typography hierarchy, scene transitions, subtle grid/noise system, and premium editorial aesthetic — but make the actual content, branding, copy, projects, skills, and identity belong to Piyush Maurya.
+
+Start by inspecting the supplied GLB and then implement the project.
