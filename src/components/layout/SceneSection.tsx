@@ -19,7 +19,7 @@ export function SceneSection({ id, index, children, className = '' }: SceneSecti
       data-index={index}
       className={`relative z-10 flex min-h-screen w-full items-center px-6 py-24 sm:px-10 lg:px-24 ${className}`}
     >
-      <div className="mx-auto w-full max-w-6xl">{children}</div>
+      <div className="mx-auto w-full max-w-[90rem]">{children}</div>
     </section>
   );
 }

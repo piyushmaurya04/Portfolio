@@ -5,7 +5,7 @@ const FOOTER_LINKS = socials.filter((s) => ['GitHub', 'LinkedIn'].includes(s.lab
 export function Footer() {
   return (
     <footer className="relative z-10 border-t border-bone/10 px-6 py-14 sm:px-10 lg:px-24">
-      <div className="mx-auto flex max-w-6xl flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
+      <div className="mx-auto flex w-full max-w-[90rem] flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="font-display text-2xl text-bone">{personal.name}</p>
           <p className="mt-1 text-[0.72rem] uppercase tracking-[0.2em] text-bone/40">
@@ -29,7 +29,7 @@ export function Footer() {
         </ul>
       </div>
 
-      <p className="mx-auto mt-10 max-w-6xl text-[0.66rem] uppercase tracking-[0.16em] text-bone/25">
+      <p className="mx-auto mt-10 w-full max-w-[90rem] text-[0.66rem] uppercase tracking-[0.16em] text-bone/25">
         © {new Date().getFullYear()} {personal.name}. Designed & built with care.
       </p>
     </footer>

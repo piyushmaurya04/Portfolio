@@ -1,4 +1,5 @@
 import { BackgroundGlow } from './BackgroundGlow';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
 
 /**
  * Fixed layered background sitting behind the WebGL canvas:
@@ -6,6 +7,8 @@ import { BackgroundGlow } from './BackgroundGlow';
  * a receding perspective grid floor, vignette and procedural grain.
  */
 export function GlobalBackground() {
+  const showBackgroundGlow = useMediaQuery('(min-width: 1024px)');
+
   return (
     <div className="pointer-events-none fixed inset-0 overflow-hidden" aria-hidden="true">
       {/* Layer 1 — near-black base */}
@@ -21,7 +24,7 @@ export function GlobalBackground() {
       />
 
       {/* Layer 2b — glowing neon background object that tracks the model */}
-      <BackgroundGlow />
+      {showBackgroundGlow && <BackgroundGlow />}
 
       {/* Layer 3 — architectural grid */}
       <div className="arch-grid absolute inset-0 z-[1] opacity-70" />
