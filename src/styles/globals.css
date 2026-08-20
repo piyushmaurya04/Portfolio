@@ -179,6 +179,35 @@ body {
   transform-style: preserve-3d;
 }
 
+@media (max-width: 1023px) {
+  .project-controls {
+    display: none;
+  }
+
+  .proj-viewport {
+    max-width: none;
+    overflow: visible;
+    padding: 24px 0;
+  }
+
+  .proj-track {
+    width: 100%;
+    flex-direction: column;
+    gap: 20px;
+    transform: none !important;
+  }
+
+  .proj-item {
+    flex: none;
+    width: 100%;
+  }
+
+  .proj-item article,
+  .proj-item article:hover {
+    transform: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.001ms !important;

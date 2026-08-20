@@ -1,5 +1,7 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SceneSection } from '../components/layout/SceneSection';
 import { Eyebrow } from '../components/typography/Eyebrow';
 import { Reveal } from '../components/typography/Reveal';
@@ -8,12 +10,43 @@ import { ProjectModal } from '../components/projects/ProjectModal';
 import { projects } from '../data/projects';
 import type { Project } from '../data/projects';
 
+gsap.registerPlugin(ScrollTrigger);
+
 const STEP = 236; // card width (220) + gap (16)
 
 export function ProjectsScene() {
   const [selected, setSelected] = useState<Project | null>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track || window.matchMedia('(min-width: 1024px)').matches) return;
+
+    const cards = gsap.utils.toArray<HTMLElement>(track.querySelectorAll('.proj-item'));
+    if (cards.length === 0) return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      gsap.set(cards, { opacity: 1, y: 0 });
+      return;
+    }
+
+    const directions = [{ y: -56 }, { x: 72 }, { y: 56 }, { x: -72 }];
+    const context = gsap.context(() => {
+      cards.forEach((card, index) => gsap.set(card, { autoAlpha: 0, ...directions[index % directions.length] }));
+
+      const timeline = gsap.timeline({
+        scrollTrigger: { trigger: track, start: 'top 82%', once: true },
+      });
+      cards.forEach((card) => {
+        timeline.to(card, { autoAlpha: 1, x: 0, y: 0, duration: 0.35, ease: 'power3.out' }, '+=0.03');
+      });
+    }, track);
+
+    return () => {
+      context.revert();
+    };
+  }, []);
 
   const scrollCards = (direction: -1 | 1) => {
     trackRef.current?.scrollBy({ left: STEP * direction, behavior: 'smooth' });
@@ -35,7 +68,7 @@ export function ProjectsScene() {
         </div>
 
         <Reveal delay={0.08}>
-          <div className="mt-6 flex justify-end gap-2">
+          <div className="project-controls mt-6 flex justify-end gap-2">
             <div className="flex shrink-0 gap-2">
               <button
                 type="button"
