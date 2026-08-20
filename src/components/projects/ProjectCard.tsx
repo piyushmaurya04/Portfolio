@@ -18,9 +18,19 @@ export function ProjectCard({ project, index, active, onOpen }: ProjectCardProps
   const badge = String(index + 1).padStart(2, '0');
   return (
     <article
-      className={`group relative flex h-full flex-col overflow-hidden rounded-lg border border-bone/15 bg-[#101214]/90 transition-all duration-500 ease-editorial hover:z-10 hover:scale-[1.1] hover:border-gilt/80 hover:bg-[#171a1d] hover:shadow-[0_0_0_1px_rgba(201,168,106,0.24),0_24px_60px_rgba(0,0,0,0.52)] ${
+      role="button"
+      tabIndex={0}
+      aria-label={`View details for ${project.title}`}
+      onClick={() => onOpen(project)}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          onOpen(project);
+        }
+      }}
+      className={`group relative flex h-full flex-col overflow-hidden rounded-lg border border-bone/15 bg-[#101214]/90 transition-all duration-500 ease-editorial hover:z-10 hover:scale-[1.1] hover:border-gilt/80 hover:bg-[#171a1d] ${
         active
-          ? 'z-10 scale-[1.1] border-gilt/80 bg-[#181c20] shadow-[0_0_0_1px_rgba(201,168,106,0.34),0_24px_64px_rgba(201,168,106,0.16),0_18px_48px_rgba(0,0,0,0.58)]'
+          ? 'z-10 scale-[1.1] border-gilt/80 bg-[#181c20]'
           : ''
       }`}
     >
@@ -32,11 +42,20 @@ export function ProjectCard({ project, index, active, onOpen }: ProjectCardProps
           }`}
           style={{ background: PREVIEWS[index % PREVIEWS.length] }}
         />
+        {project.coverImage && (
+          <img
+            src={project.coverImage}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-editorial group-hover:scale-[1.04]"
+          />
+        )}
         <div
           className="absolute inset-0"
           style={{
-            background:
-              'radial-gradient(80% 120% at 20% 0%, rgba(201,168,106,0.28), rgba(201,168,106,0.12) 25%, transparent 60%)',
+            background: project.coverImage
+              ? 'linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.62))'
+              : 'radial-gradient(80% 120% at 20% 0%, rgba(201,168,106,0.28), rgba(201,168,106,0.12) 25%, transparent 60%)',
           }}
         />
         <span className="pointer-events-none absolute bottom-1 left-3 font-display text-[3.4rem] leading-none text-bone/[0.06]">
@@ -59,11 +78,7 @@ export function ProjectCard({ project, index, active, onOpen }: ProjectCardProps
         <p className="mt-2 text-[0.8rem] leading-relaxed text-bone/80 line-clamp-2">{project.description}</p>
 
         <div className="mt-auto pt-4">
-          <button
-            type="button"
-            onClick={() => onOpen(project)}
-            className="inline-flex items-center gap-2 text-[0.62rem] uppercase tracking-[0.2em] text-bone/80 transition-colors duration-300 hover:text-gilt"
-          >
+          <span className="inline-flex items-center gap-2 text-[0.62rem] uppercase tracking-[0.2em] text-bone/80">
             View Details
             <span
               aria-hidden="true"
@@ -73,7 +88,7 @@ export function ProjectCard({ project, index, active, onOpen }: ProjectCardProps
             >
               →
             </span>
-          </button>
+          </span>
         </div>
       </div>
     </article>

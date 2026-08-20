@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { SceneSection } from '../components/layout/SceneSection';
 import { Eyebrow } from '../components/typography/Eyebrow';
 import { Reveal } from '../components/typography/Reveal';
@@ -6,6 +7,17 @@ import { tenureSince } from '../lib/tenure';
 
 export function ExperienceScene() {
   const job = experience[0];
+  const [today, setToday] = useState(() => new Date());
+
+  useEffect(() => {
+    const updateAtMidnight = () => setToday(new Date());
+    const now = new Date();
+    const nextMidnight = new Date(now);
+    nextMidnight.setHours(24, 0, 0, 0);
+    const timeout = window.setTimeout(updateAtMidnight, nextMidnight.getTime() - now.getTime());
+    return () => window.clearTimeout(timeout);
+  }, [today]);
+
   return (
     <SceneSection id="experience" index={3}>
       <div className="w-full">
@@ -36,7 +48,7 @@ export function ExperienceScene() {
 
           <Reveal delay={0.14}>
             <p className="mt-3 text-[0.72rem] uppercase tracking-[0.2em] text-bone/40">
-              {job.account} · {job.location} · {tenureSince(job.startDate)}
+              {job.account} · {job.location} · {tenureSince(job.startDate, today)}
             </p>
           </Reveal>
 

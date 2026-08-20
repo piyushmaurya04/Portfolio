@@ -12,7 +12,7 @@ import type { Project } from '../data/projects';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const STEP = 236; // card width (220) + gap (16)
+const STEP = 256; // card width (240) + gap (16)
 
 export function ProjectsScene() {
   const [selected, setSelected] = useState<Project | null>(null);
@@ -23,7 +23,7 @@ export function ProjectsScene() {
     const track = trackRef.current;
     if (!track || window.matchMedia('(min-width: 1024px)').matches) return;
 
-    const cards = gsap.utils.toArray<HTMLElement>(track.querySelectorAll('.proj-item'));
+    const cards = gsap.utils.toArray<HTMLElement>(track.querySelectorAll('.proj-card-motion'));
     if (cards.length === 0) return;
 
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -93,19 +93,21 @@ export function ProjectsScene() {
         <Reveal delay={0.1}>
           <div
             ref={trackRef}
-            className="proj-viewport no-scrollbar ml-auto mt-6 max-w-[760px]"
+            className="proj-viewport no-scrollbar ml-auto mt-6 max-w-[804px]"
             aria-label="Selected work projects"
             onMouseLeave={() => setHoveredIndex(null)}
           >
             <div className="proj-track" style={{ transform: 'rotateY(-16deg)' }}>
               {projects.map((p, i) => (
                 <div key={p.id} className="proj-item" onMouseEnter={() => setHoveredIndex(i)}>
-                  <ProjectCard
-                    project={p}
-                    index={i}
-                    active={hoveredIndex === null ? i === 1 : hoveredIndex === i}
-                    onOpen={setSelected}
-                  />
+                  <div className="proj-card-motion h-full">
+                    <ProjectCard
+                      project={p}
+                      index={i}
+                      active={hoveredIndex === i}
+                      onOpen={setSelected}
+                    />
+                  </div>
                 </div>
               ))}
             </div>

@@ -1,10 +1,11 @@
-import { Github, Linkedin, Instagram, Twitter, Code2, ChefHat, Trophy } from 'lucide-react';
+import { useState } from 'react';
+import { Github, Linkedin, Instagram, Twitter, Code2, ChefHat, Trophy, Copy } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { SceneSection } from '../components/layout/SceneSection';
 import { Eyebrow } from '../components/typography/Eyebrow';
 import { Reveal } from '../components/typography/Reveal';
 import { ContactForm } from '../components/ui/ContactForm';
-import { personal, emailHref, socials } from '../data/personal';
+import { personal, socials } from '../data/personal';
 
 const SOCIAL_ICONS: Record<string, LucideIcon> = {
   GitHub: Github,
@@ -17,6 +18,21 @@ const SOCIAL_ICONS: Record<string, LucideIcon> = {
 };
 
 export function ContactScene() {
+  const [emailCopied, setEmailCopied] = useState(false);
+  const [copyError, setCopyError] = useState(false);
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(personal.email);
+      setCopyError(false);
+      setEmailCopied(true);
+      window.setTimeout(() => setEmailCopied(false), 2200);
+    } catch {
+      setCopyError(true);
+      window.setTimeout(() => setCopyError(false), 2200);
+    }
+  };
+
   return (
     <SceneSection id="contact" index={6}>
       <div className="max-w-2xl">
@@ -40,11 +56,21 @@ export function ContactScene() {
 
         <Reveal delay={0.14}>
           <div className="mt-8 flex flex-wrap items-center gap-6 text-[0.72rem] uppercase tracking-[0.18em] text-bone/75">
-            <a href={emailHref} className="transition-colors hover:text-bone">
+            <button
+              type="button"
+              onClick={copyEmail}
+              className="inline-flex items-center gap-2 normal-case transition-colors hover:text-bone"
+              aria-label="Copy email address"
+              title="Copy email address"
+            >
               {personal.email}
-            </a>
+              <Copy size={14} aria-hidden="true" />
+            </button>
             <span className="h-3 w-px bg-bone/35" />
             <span>{personal.location}</span>
+            <span className={`text-[0.62rem] normal-case tracking-[0.08em] text-gilt ${emailCopied || copyError ? '' : 'sr-only'}`} aria-live="polite">
+              {emailCopied ? 'Copied' : copyError ? 'Copy failed' : ''}
+            </span>
           </div>
         </Reveal>
 

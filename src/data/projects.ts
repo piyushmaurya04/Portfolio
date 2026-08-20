@@ -4,6 +4,7 @@ export interface Project {
   type: string;
   status?: string;
   featured?: boolean;
+  coverImage?: string;
   description: string;
   highlights: string[];
   tech: string[];
@@ -18,6 +19,7 @@ export const projects: Project[] = [
     type: 'Backend · Full Stack',
     status: 'In Progress',
     featured: true,
+    coverImage: '/projects/tenant-owner-management.png',
     description:
       'An owner-managed property platform with a normalized relational schema and REST APIs for Users, Properties and Leases. Financial logic is computed server-side to guarantee accuracy and avoid data staleness.',
     highlights: [
@@ -33,6 +35,7 @@ export const projects: Project[] = [
     id: 'weather',
     title: 'Weather Application',
     type: 'Full Stack',
+    coverImage: '/projects/weather.png',
     description:
       'A dynamic weather app serving real-time weather data through a Java backend with a responsive client interface.',
     highlights: [
@@ -46,6 +49,7 @@ export const projects: Project[] = [
     id: 'netflix',
     title: 'Netflix Clone',
     type: 'Frontend',
+    coverImage: '/projects/netflix.png',
     description:
       'A pixel-faithful replica of the Netflix interface, built to master responsive layout, component structure and interactive UI patterns.',
     highlights: [
@@ -59,6 +63,7 @@ export const projects: Project[] = [
     id: 'myntra',
     title: 'Myntra Clone',
     type: 'Frontend',
+    coverImage: '/projects/myntra.png',
     description:
       'A responsive e-commerce clone of Myntra featuring a full front-end shopping experience.',
     highlights: [
