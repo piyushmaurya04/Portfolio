@@ -135,23 +135,13 @@ body {
   display: none;
 }
 
-/* Subtle thin scrollbar for the project modal */
+/* Keep project modal scrolling available without showing a scrollbar */
 .modal-scroll {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(201, 168, 106, 0.35) transparent;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 .modal-scroll::-webkit-scrollbar {
-  width: 6px;
-}
-.modal-scroll::-webkit-scrollbar-track {
-  background: transparent;
-}
-.modal-scroll::-webkit-scrollbar-thumb {
-  background: rgba(201, 168, 106, 0.32);
-  border-radius: 3px;
-}
-.modal-scroll::-webkit-scrollbar-thumb:hover {
-  background: rgba(201, 168, 106, 0.5);
+  display: none;
 }
 
 /* 3D perspective project carousel — cards recede toward the model (left) */
