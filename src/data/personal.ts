@@ -46,4 +46,3 @@ export const socials: SocialLink[] = [
   { label: 'Instagram', short: 'IG', href: 'https://www.instagram.com/piyushmaurya22' },
 ];
 
-export const emailHref = `mailto:${personal.email}`;

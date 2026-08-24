@@ -1,4 +1,4 @@
-import { personal, socials, emailHref } from '../../data/personal';
+import { personal, socials } from '../../data/personal';
 
 const FOOTER_LINKS = socials.filter((s) => ['GitHub', 'LinkedIn'].includes(s.label));
 
@@ -21,11 +21,6 @@ export function Footer() {
               </a>
             </li>
           ))}
-          <li>
-            <a href={emailHref} className="transition-colors hover:text-bone">
-              Email
-            </a>
-          </li>
         </ul>
       </div>
 
