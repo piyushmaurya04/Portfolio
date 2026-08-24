@@ -15,4 +15,6 @@ npm run dev
 npm run build
 ```
 
-The deployed site uses the Netlify configuration in `netlify.toml`. Contact form configuration is kept in the local `.env` file and must not be committed.
+The deployed site uses the Netlify configuration in `netlify.toml`. The contact form sends through the Netlify Function at `/.netlify/functions/contact`.
+
+Configure these environment variables in Netlify (or in a local `.env` for Netlify CLI development): `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, and `CONTACT_RECIPIENT`. Keep `SMTP_PASSWORD` out of source control.

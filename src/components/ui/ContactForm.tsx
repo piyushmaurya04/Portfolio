@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 type Status = 'idle' | 'sending' | 'sent' | 'error';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const ENDPOINT = import.meta.env.VITE_CONTACT_ENDPOINT as string | undefined;
+const ENDPOINT = '/.netlify/functions/contact';
 
 interface Errors {
   name?: string;
@@ -35,29 +35,19 @@ export function ContactForm() {
 
     if (honeypot.current?.value) return; // bot trap
 
-    if (!ENDPOINT) {
-      window.location.href = `mailto:piyushmaurya0410@gmail.com?subject=${encodeURIComponent(
-        `Portfolio message from ${name}`,
-      )}&body=${encodeURIComponent(message + '\n\n' + email)}`;
-      return;
-    }
-
     setStatus('sending');
     setNote('This may take a few seconds…');
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 30000);
     try {
-      const payload = new FormData();
-      payload.append('Name', name);
-      payload.append('Email', email);
-      payload.append('Messages', message);
-      await fetch(ENDPOINT, {
+      const response = await fetch(ENDPOINT, {
         method: 'POST',
-        body: payload,
-        mode: 'no-cors',
-        keepalive: true,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, message }),
         signal: controller.signal,
       });
+      const result = (await response.json().catch(() => ({}))) as { error?: string };
+      if (!response.ok) throw new Error(result.error || 'Unable to send message.');
       setStatus('sent');
       setNote('Message sent successfully ✓');
       form.reset();
@@ -70,7 +60,9 @@ export function ContactForm() {
       setNote(
         err instanceof DOMException && err.name === 'AbortError'
           ? 'Request timeout. Server may be slow. Try again in a moment.'
-          : 'Failed to send message. Please check your connection.',
+          : err instanceof Error
+            ? err.message
+            : 'Failed to send message. Please check your connection.',
       );
     } finally {
       clearTimeout(timeout);
