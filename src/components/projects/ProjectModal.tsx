@@ -67,7 +67,17 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
         <div className="flex flex-wrap items-center gap-3 pr-10">
           <span className="text-[0.64rem] uppercase tracking-[0.2em] text-bone/45">{project.type}</span>
           {project.status && (
-            <span className="text-[0.62rem] uppercase tracking-[0.18em] text-gilt/90">
+            <span
+              className={`inline-flex items-center gap-1.5 text-[0.62rem] uppercase tracking-[0.18em] ${
+                project.status === 'Live' ? 'text-emerald-300' : 'text-gilt/90'
+              }`}
+            >
+              {project.status === 'Live' && (
+                <span
+                  aria-hidden="true"
+                  className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(74,222,128,0.9)]"
+                />
+              )}
               {project.status}
             </span>
           )}
@@ -104,7 +114,19 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
         </div>
 
         <div className="mt-6 border-t border-bone/10 pt-5">
-          {project.repo ? (
+          <div className="flex flex-wrap gap-2">
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-gilt/50 px-5 py-2.5 text-[0.7rem] uppercase tracking-[0.2em] text-bone/85 transition-colors hover:border-gilt hover:text-bone"
+              >
+                Open Live App
+                <ArrowUpRight size={15} />
+              </a>
+            )}
+            {project.repo ? (
             <a
               href={project.repo}
               target="_blank"
@@ -114,11 +136,12 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
               View Repository
               <ArrowUpRight size={15} />
             </a>
-          ) : (
+            ) : !project.liveUrl ? (
             <p className="text-[0.66rem] uppercase tracking-[0.16em] text-bone/35">
               {project.repoLabel ?? 'Private repository'}
             </p>
-          )}
+            ) : null}
+          </div>
         </div>
       </div>
     </div>

@@ -5,6 +5,7 @@ export interface Project {
   status?: string;
   featured?: boolean;
   coverImage?: string;
+  liveUrl?: string;
   description: string;
   highlights: string[];
   tech: string[];
@@ -30,6 +31,25 @@ export const projects: Project[] = [
     ],
     tech: ['Java', 'Spring Boot', 'Spring Data JPA', 'Hibernate', 'MySQL', 'Maven'],
     repoLabel: 'Private / in-progress repository',
+  },
+  {
+    id: 'expense-tracker',
+    title: 'Expense Tracker',
+    type: 'Full Stack',
+    status: 'Live',
+    liveUrl: 'https://ledger-mlrg.onrender.com/',
+    coverImage: '/projects/ledger.png',
+    description:
+      'A personal finance app for organizing income and expenses, tracking budgets, and understanding spending and savings habits.',
+    highlights: [
+      'Secure accounts with private, protected finance data.',
+      'Dashboard overview of income, expenses, and balance.',
+      'Record, review, edit, and remove expense and income entries.',
+      'Monitor monthly budgets and compare planned spending with actuals.',
+      'Explore spending trends and manage profile details.',
+    ],
+    tech: [],
+    repo: 'https://github.com/piyushmaurya04/Expense-Tracker',
   },
   {
     id: 'weather',

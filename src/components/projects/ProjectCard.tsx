@@ -65,7 +65,17 @@ export function ProjectCard({ project, index, active, onOpen }: ProjectCardProps
           Project {badge}
         </span>
         {project.status && (
-          <span className="absolute left-3 top-3 text-[0.55rem] uppercase tracking-[0.16em] text-gilt/90">
+          <span
+            className={`absolute left-3 top-3 text-[0.55rem] uppercase tracking-[0.16em] ${
+              project.status === 'Live' ? 'inline-flex items-center gap-1.5 text-emerald-300' : 'text-gilt/90'
+            }`}
+          >
+            {project.status === 'Live' && (
+              <span
+                aria-hidden="true"
+                className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(74,222,128,0.9)]"
+              />
+            )}
             {project.status}
           </span>
         )}
