@@ -16,11 +16,12 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: 'tom',
-    title: 'Tenant & Owner Management',
+    title: 'Smylio (Tenant Owner Management)',
     type: 'Backend · Full Stack',
-    status: 'In Progress',
+    status: 'Live',
     featured: true,
     coverImage: '/projects/tenant-owner-management.png',
+    liveUrl: 'https://smylio.onrender.com',
     description:
       'An owner-managed property platform with a normalized relational schema and REST APIs for Users, Properties and Leases. Financial logic is computed server-side to guarantee accuracy and avoid data staleness.',
     highlights: [
@@ -30,11 +31,11 @@ export const projects: Project[] = [
       'Dues modeled as a computed aggregate over unpaid rent rows — no stored totals.',
     ],
     tech: ['Java', 'Spring Boot', 'Spring Data JPA', 'Hibernate', 'MySQL', 'Maven'],
-    repoLabel: 'Private / in-progress repository',
+    repo: 'https://github.com/piyushmaurya04/Smylio/',
   },
   {
     id: 'expense-tracker',
-    title: 'Expense Tracker',
+    title: 'Ledger (Expense Tracker)',
     type: 'Full Stack',
     status: 'Live',
     liveUrl: 'https://ledger-mlrg.onrender.com/',
