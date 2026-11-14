@@ -17,8 +17,9 @@ export function WebGLScene({ simplified, elevated = false }: WebGLSceneProps) {
   if (simplified) return null;
 
   return (
-    <div className={`fixed inset-0 ${elevated ? 'z-[20]' : 'z-[2]'}`} aria-hidden="true">
+    <div className={`pointer-events-none fixed inset-0 ${elevated ? 'z-[20]' : 'z-[2]'}`} aria-hidden="true">
       <Canvas
+        className="pointer-events-none"
         dpr={[1, 1.6]}
         gl={{ antialias: true, powerPreference: 'high-performance', alpha: true }}
         camera={{ position: HERO_STATE.camPos, fov: 35, near: 0.1, far: 100 }}

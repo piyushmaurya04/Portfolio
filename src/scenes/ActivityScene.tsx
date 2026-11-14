@@ -18,7 +18,7 @@ export function ActivityScene() {
     const cards = gsap.utils.toArray<HTMLElement>(grid.children);
     const directions = [{ y: -56 }, { x: 72 }, { y: 56 }, { x: -72 }];
     const context = gsap.context(() => {
-      cards.forEach((card, index) => gsap.set(card, { autoAlpha: 0, ...directions[index] }));
+      cards.forEach((card, index) => gsap.set(card, { autoAlpha: 0, ...directions[index % directions.length] }));
 
       const timeline = gsap.timeline({
         scrollTrigger: { trigger: grid, start: 'top 82%', once: true },

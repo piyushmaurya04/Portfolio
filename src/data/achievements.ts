@@ -9,7 +9,13 @@ export const achievements: Achievement[] = [
     title: 'TCS GEMS Award',
     meta: 'Best Team',
     detail:
-      'Recognized for independently designing and deploying a production-ready Kafka consumer service with DLQ and auto-retry, adopted as a critical upstream data source.',
+      'Recognized for designing and deploying the WIPS event-driven Kafka synchronization platform with two-tier failure handling, DLQ self-recovery, and ~400K initial message throughput.',
+  },
+  {
+    title: 'Enterprise Security',
+    meta: '150+ Remediations',
+    detail:
+      'Remediated 150+ vulnerabilities across 14 enterprise apps via SAST/DAST/SCA scans, patched CVE-2024-38816 with CXF conflict resolution, and enforced SonarQube quality gates.',
   },
   {
     title: 'LeetCode',
@@ -17,20 +23,15 @@ export const achievements: Achievement[] = [
     detail: 'Arrays, trees, graphs, dynamic programming and sorting across 150+ DSA problems.',
   },
   {
-    title: 'CodeChef',
-    meta: '2★ · 1565',
-    detail: 'Highest rating 1565 — strong in algorithms, data structures and competitive programming.',
-  },
-  {
-    title: 'HackerRank',
-    meta: 'Java Gold 5★',
-    detail: 'Gold badge in Java demonstrating advanced proficiency and problem-solving.',
+    title: 'Competitive Coding',
+    meta: 'Java Gold 5★ · 2★',
+    detail: 'Gold badge in Java on HackerRank and 2★ rating (1565) on CodeChef, demonstrating strong algorithmic problem-solving.',
   },
 ];
 
 export const stats = [
-  { value: '4', label: 'Kafka consumer services' },
-  { value: '150+', label: 'DSA problems solved' },
-  { value: '93K', label: 'Messages / topic' },
+  { value: '400K', label: 'Kafka messages / initial load' },
+  { value: '150+', label: 'Vulnerabilities remediated' },
+  { value: '4', label: 'Kafka consumer flows' },
   { value: 'GEMS', label: 'TCS Best Team award' },
 ];

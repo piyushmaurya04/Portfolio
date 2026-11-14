@@ -26,18 +26,18 @@ export function AboutScene() {
 
         <Reveal delay={0.1}>
           <p className="mt-8 text-sm leading-relaxed text-bone/75">
-            I&apos;m a Software Engineer at {personal.employer} ({personal.employerShort}), working on the
-            client account in Mumbai. I build enterprise Java / Spring Boot applications and design
-            event-driven, fault-tolerant Apache Kafka pipelines with dead-letter-queue handling that
-            eliminate manual intervention and prevent data loss.
+            I&apos;m a System Engineer at {personal.employer} ({personal.employerShort}), working on an
+            enterprise client account in Mumbai. I architect event-driven Apache Kafka pipelines, master-data
+            REST integrations, and fault-tolerant synchronization systems with automated dead-letter-queue
+            reprocessing.
           </p>
         </Reveal>
 
         <Reveal delay={0.14}>
           <p className="mt-4 text-sm leading-relaxed text-bone/75">
-            I have a solid foundation in SQL, production support and CI/CD (Docker, Jenkins). I
-            independently own the full production deployment lifecycle, from build to release, and was
-            recognized with a TCS GEMS Award for Best Team.
+            Beyond distributed streaming and backend architecture, I drive application security and code quality—remediating
+            150+ vulnerabilities across 14 enterprise services, patching critical CVEs, and sustaining SonarQube quality gates
+            through rigorous CI/CD release cycles.
           </p>
         </Reveal>
 

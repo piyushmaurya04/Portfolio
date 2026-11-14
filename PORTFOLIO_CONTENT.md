@@ -93,9 +93,9 @@ I have a solid foundation in SQL, production support, and CI/CD (Docker, Jenkins
 **Stats:**
 | Number | Label |
 |--------|-------|
-| 4 | Kafka consumer services built |
-| 150+ | DSA problems solved |
-| 93K | Messages processed / topic |
+| 400K | Kafka messages / initial load |
+| 150+ | Vulnerabilities remediated |
+| 4 | Kafka consumer flows |
 | GEMS | TCS Best Team Award |
 
 ---
@@ -104,18 +104,33 @@ I have a solid foundation in SQL, production support, and CI/CD (Docker, Jenkins
 
 ### System Engineer — Tata Consultancy Services (TCS)
 - **Team/Account:** Enterprise Client Account
-- **Period:** Jan 2025 – Present (start date `2025-01-16`, live tenure counter)
+- **Period:** January 2025 – Present (start date `2025-01-16`, live tenure counter)
 - **Location:** Mumbai, India
 
-**Responsibilities & Achievements:**
-- Enhanced an enterprise web application (**PSS**) with new business features and production-defect fixes, improving stability and reliability.
-- Designed and built **four Spring Boot Kafka consumer services** ingesting real-time distributor data, each via **3 parallel partitions per topic**; an initial load of **70K–93K messages/topic** was consumed and persisted within seconds of deployment.
-- Implemented **eventId-based deduplication** against Oracle stored procedures (UPSERT/DELETE) for exactly-once writes, with full schema validation before persistence.
-- Architected a **two-tier fault-tolerance strategy**: in-memory retry (5 attempts, 1-min backoff) + immediate DLQ routing with throttled email alerts, plus a scheduled **DLQ reprocessor** (every 2 hrs, up to 12 retries).
-- Secured all Kafka connections with **OAuth (SASL_SSL)** and **Conjur-managed credentials** in Kubernetes across four environments (DEV/LT/STG/PRD).
-- Validated a **Teradata-to-Snowflake** data migration and independently owned the client's end-to-end production deployment lifecycle.
+#### 1. WIPS – Event-Driven Data Synchronization Platform
+- **Tech:** Java, Spring Boot, Apache Kafka, Oracle
+- Designed and built a new event-driven sync flow with four Kafka consumers in the team's existing Kafka microservice, syncing distributor coverage, geography, landscape and qualification events from upstream systems into Oracle.
+- Processed a ~400K-message initial load (85K–105K per topic) in under one minute per topic, using three concurrent consumers per topic (Kafka consumer groups) and stored-procedure call objects created once and reused for every message.
+- Implemented two-level failure handling: in-consumer retries (5 attempts at 1-minute intervals, Spring Kafka DefaultErrorHandler) for transient errors, and direct DLQ routing for poison messages so a bad record never blocks a partition.
+- Built scheduled DLQ reprocessing (up to 12 retries at 2-hour intervals) with a standard failure envelope (event ID, payload, reason, retry count, first failure time), enabling self-recovery from long outages without manual work.
+- Delivered at-least-once processing with manual offset commits and idempotent Oracle stored procedures using event-ID deduplication.
+- Added structured logs, throttled email alerts and JUnit 5/Mockito tests; secured Kafka with SASL/OAUTHBEARER over SSL using CyberArk Conjur credentials; released through Dev, Load Test, Stage and Production via CI/CD.
 
-**Tech tags:** Spring Boot · Apache Kafka · Oracle SQL · OAuth SASL_SSL · Kubernetes · Conjur
+#### 2. PSS – Partner Self-Service: Customer Registry Integration
+- **Tech:** Java, Spring, REST APIs, Oracle PL/SQL, Angular
+- Implemented Customer Registry (CR) master-data integration in Location Management: site create/update flows chaining Restricted Party Screening, CR REST APIs (Apache HttpClient, OAuth 2.0) and Oracle PL/SQL stored procedures.
+- Built CR request/response handling with Jackson, validating business acknowledgements beyond HTTP status and routing error codes to prevent duplicate partner sites.
+- Kept site-ID cross-references and company/site hierarchies in sync between CR and the partner database; supported asynchronous RPS callbacks for compliance-held sites, with full request/response audit logging.
+- Built the new distributor flow after a business change moved distributors from the shared geography-based partner hierarchy to a separate coverage-based hierarchy, reworking PSS logic and UI with separate distributor and partner views, powered by data synced through the WIPS Kafka flow.
+- Resolved production defects from the sprint backlog: reproduced issues in lower environments, fixed root causes, added tests and shipped fixes in scheduled releases.
+
+#### 3. Security & Code Quality
+- **Tech:** SAST, DAST, SCA, SonarQube
+- Remediated 150+ unique vulnerabilities across 14 enterprise applications reported by SAST, DAST and SCA scans, covering insecure code patterns, input-validation gaps, runtime issues and vulnerable dependencies.
+- Upgraded Spring Framework to fix CVE-2024-38816 (path traversal) and resolved the resulting JAX-RS/Apache CXF library conflicts; verified every fix through re-scans and regression testing before release.
+- Kept SonarQube quality gates passing by fixing reported bugs, code smells and security hotspots, and by adding unit tests to meet coverage thresholds before every merge and release.
+
+**Tech tags:** Java · Spring Boot · Apache Kafka · Oracle PL/SQL · REST APIs · Angular · CyberArk Conjur · OAuth 2.0 / SASL_SSL · SonarQube · SAST / DAST · JUnit 5 / Mockito · CI/CD
 
 ---
 
@@ -201,7 +216,8 @@ I have a solid foundation in SQL, production support, and CI/CD (Docker, Jenkins
 
 | Achievement | Details |
 |-------------|---------|
-| 🏆 **TCS GEMS Award · Best Team** | Recognized for outstanding team contribution. Independently designed and deployed a production-ready Kafka consumer service with DLQ and auto-retry, adopted as a critical upstream data source. |
+| 🏆 **TCS GEMS Award · Best Team** | Recognized for outstanding team contribution. Designed and deployed the WIPS event-driven Kafka synchronization platform with two-tier failure handling, DLQ self-recovery, and ~400K initial message throughput. |
+| 🛡️ **Enterprise Security & Quality** | Remediated 150+ vulnerabilities across 14 enterprise applications (SAST, DAST, SCA), resolved CVE-2024-38816, and sustained SonarQube quality gates before production release. |
 | 🧠 **LeetCode** | 150+ DSA problems solved: arrays, trees, graphs, DP, sorting. |
 | ⭐ **CodeChef · 2★** | Highest rating **1565**. Strong in algorithms, data structures & competitive programming. |
 | 🥇 **HackerRank** | Gold Badge in Java (5★): advanced Java proficiency & problem-solving. |
