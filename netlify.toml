@@ -8,7 +8,7 @@
 
 [build.environment]
   NODE_VERSION = "20"
-  SECRETS_SCAN_OMIT_KEYS = "CONTACT_RECIPIENT"
+  SECRETS_SCAN_OMIT_KEYS = "CONTACT_RECIPIENT,RESEND_API_KEY"
 
 [[redirects]]
   from = "/*"
